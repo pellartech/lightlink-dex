@@ -1,17 +1,10 @@
 import { ChainId } from '@uniswap/sdk-core'
 
-const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
-if (typeof INFURA_KEY === 'undefined') {
-  throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`)
-}
-const QUICKNODE_MAINNET_RPC_URL = process.env.REACT_APP_QUICKNODE_MAINNET_RPC_URL
-if (typeof QUICKNODE_MAINNET_RPC_URL === 'undefined') {
-  throw new Error(`REACT_APP_QUICKNODE_MAINNET_RPC_URL must be a defined environment variable`)
-}
-const QUICKNODE_BNB_RPC_URL = process.env.REACT_APP_BNB_RPC_URL
-if (typeof QUICKNODE_BNB_RPC_URL === 'undefined') {
-  throw new Error(`REACT_APP_BNB_RPC_URL must be a defined environment variable`)
-}
+import { LIGHTLINK_CHAIN_ID } from './chains'
+
+const INFURA_KEY = process.env.REACT_APP_INFURA_KEY || 'dummy-key'
+const QUICKNODE_MAINNET_RPC_URL = process.env.REACT_APP_QUICKNODE_MAINNET_RPC_URL || 'https://eth.llamarpc.com'
+const QUICKNODE_BNB_RPC_URL = process.env.REACT_APP_BNB_RPC_URL || 'https://bsc-dataseed.binance.org'
 
 /**
  * Fallback JSON-RPC endpoints.
@@ -119,6 +112,9 @@ export const FALLBACK_URLS = {
     'https://1rpc.io/base',
     'https://base.meowrpc.com',
   ],
+  [LIGHTLINK_CHAIN_ID]: [
+    'https://replicator.phoenix.lightlink.io/rpc/v1',
+  ],
 }
 
 /**
@@ -156,4 +152,5 @@ export const RPC_URLS = {
   [ChainId.BNB]: [QUICKNODE_BNB_RPC_URL, ...FALLBACK_URLS[ChainId.BNB]],
   [ChainId.AVALANCHE]: [`https://avalanche-mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.AVALANCHE]],
   [ChainId.BASE]: [`https://base-mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.BASE]],
+  [LIGHTLINK_CHAIN_ID]: ['https://replicator.phoenix.lightlink.io/rpc/v1'],
 }

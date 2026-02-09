@@ -1,6 +1,7 @@
 // a list of tokens by chain
 import { ChainId, Currency, Token } from '@uniswap/sdk-core'
 
+import { LIGHTLINK_CHAIN_ID } from './chains'
 import {
   ARB,
   BTC_BSC,
@@ -25,10 +26,13 @@ import {
   USDC_AVALANCHE,
   USDC_BASE,
   USDC_BSC,
+  USDC_LIGHTLINK,
   USDC_MAINNET,
   USDC_OPTIMISM,
   USDC_POLYGON,
+  USDCe_LIGHTLINK,
   USDT,
+  USDT_LIGHTLINK,
   USDT_ARBITRUM_ONE,
   USDT_AVALANCHE,
   USDT_BSC,
@@ -40,9 +44,11 @@ import {
   WBTC_OPTIMISM,
   WBTC_POLYGON,
   WETH_AVALANCHE,
+  WETH_LIGHTLINK,
   WETH_POLYGON,
   WETH_POLYGON_MUMBAI,
   WRAPPED_NATIVE_CURRENCY,
+  LL_LIGHTLINK,
 } from './tokens'
 
 type ChainTokenList = {
@@ -106,6 +112,15 @@ export const COMMON_BASES: ChainCurrencyList = {
 
   [ChainId.CELO]: [nativeOnChain(ChainId.CELO), CEUR_CELO, CUSD_CELO, PORTAL_ETH_CELO, PORTAL_USDC_CELO, WBTC_CELO],
   [ChainId.CELO_ALFAJORES]: [nativeOnChain(ChainId.CELO_ALFAJORES), CUSD_CELO_ALFAJORES, CEUR_CELO_ALFAJORES],
+
+  [LIGHTLINK_CHAIN_ID]: [
+    nativeOnChain(LIGHTLINK_CHAIN_ID),
+    WETH_LIGHTLINK,
+    USDCe_LIGHTLINK,
+    USDC_LIGHTLINK,
+    USDT_LIGHTLINK,
+    LL_LIGHTLINK,
+  ],
 
   [ChainId.BNB]: [nativeOnChain(ChainId.BNB), DAI_BSC, USDC_BSC, USDT_BSC, ETH_BSC, BTC_BSC, BUSD_BSC],
   [ChainId.AVALANCHE]: [

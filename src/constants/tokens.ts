@@ -1,6 +1,8 @@
 import { ChainId, Currency, Ether, NativeCurrency, Token, UNI_ADDRESSES, WETH9 } from '@uniswap/sdk-core'
 import invariant from 'tiny-invariant'
 
+import { LIGHTLINK_CHAIN_ID } from './chains'
+
 export const NATIVE_CHAIN_ID = 'NATIVE'
 
 // When decimals are not specified for an ERC20 token
@@ -257,6 +259,43 @@ export const DAI_AVALANCHE = new Token(
   'Dai.e Token'
 )
 
+// LightLink tokens
+export const WETH_LIGHTLINK = new Token(
+  LIGHTLINK_CHAIN_ID,
+  '0x7EbeF2A4b1B09381Ec5B9dF8C5c6f2dBECA59c73',
+  18,
+  'WETH',
+  'Wrapped Ether'
+)
+export const USDC_LIGHTLINK = new Token(
+  LIGHTLINK_CHAIN_ID,
+  '0x18fB38404DADeE1727Be4b805c5b242B5413Fa40',
+  6,
+  'USDC',
+  'USD Coin'
+)
+export const USDCe_LIGHTLINK = new Token(
+  LIGHTLINK_CHAIN_ID,
+  '0xbCF8C1B03bBDDA88D579330BDF236B58F8bb2cFd',
+  6,
+  'USDCe',
+  'Bridged USDC'
+)
+export const USDT_LIGHTLINK = new Token(
+  LIGHTLINK_CHAIN_ID,
+  '0x808d7c71ad2ba3FA531b068a2417C63106BC0949',
+  6,
+  'USDT',
+  'Tether USD'
+)
+export const LL_LIGHTLINK = new Token(
+  LIGHTLINK_CHAIN_ID,
+  '0x519d3443cACc61bD844546eDAea48E5502021802',
+  18,
+  'LL',
+  'LightLink'
+)
+
 export const UNI: { [chainId: number]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, UNI_ADDRESSES[ChainId.MAINNET], 18, 'UNI', 'Uniswap'),
   [ChainId.GOERLI]: new Token(ChainId.GOERLI, UNI_ADDRESSES[ChainId.GOERLI], 18, 'UNI', 'Uniswap'),
@@ -343,6 +382,7 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     'WAVAX',
     'Wrapped AVAX'
   ),
+  [LIGHTLINK_CHAIN_ID]: WETH_LIGHTLINK,
 }
 
 export function isCelo(chainId: number): chainId is ChainId.CELO | ChainId.CELO_ALFAJORES {
@@ -480,5 +520,6 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in ChainId]?: s
     [ChainId.GOERLI]: USDC_GOERLI.address,
     [ChainId.SEPOLIA]: USDC_SEPOLIA.address,
     [ChainId.AVALANCHE]: USDC_AVALANCHE.address,
+    [LIGHTLINK_CHAIN_ID]: USDCe_LIGHTLINK.address,
   },
 }

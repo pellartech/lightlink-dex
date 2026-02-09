@@ -3,7 +3,7 @@ import AppRpcProvider from 'rpc/AppRpcProvider'
 import AppStaticJsonRpcProvider from 'rpc/StaticJsonRpcProvider'
 import StaticJsonRpcProvider from 'rpc/StaticJsonRpcProvider'
 
-import { SupportedInterfaceChain } from './chains'
+import { LIGHTLINK_CHAIN_ID, SupportedInterfaceChain } from './chains'
 import { RPC_URLS } from './networks'
 
 const providerFactory = (chainId: SupportedInterfaceChain, i = 0) =>
@@ -30,6 +30,7 @@ export const RPC_PROVIDERS: { [key in SupportedInterfaceChain]: StaticJsonRpcPro
   [ChainId.BNB]: providerFactory(ChainId.BNB),
   [ChainId.AVALANCHE]: providerFactory(ChainId.AVALANCHE),
   [ChainId.BASE]: providerFactory(ChainId.BASE),
+  [LIGHTLINK_CHAIN_ID]: new AppStaticJsonRpcProvider(LIGHTLINK_CHAIN_ID as any, RPC_URLS[LIGHTLINK_CHAIN_ID][0]),
 }
 
 export const DEPRECATED_RPC_PROVIDERS: { [key in SupportedInterfaceChain]: AppStaticJsonRpcProvider } = {
@@ -47,4 +48,5 @@ export const DEPRECATED_RPC_PROVIDERS: { [key in SupportedInterfaceChain]: AppSt
   [ChainId.BNB]: providerFactory(ChainId.BNB),
   [ChainId.AVALANCHE]: providerFactory(ChainId.AVALANCHE),
   [ChainId.BASE]: providerFactory(ChainId.BASE),
+  [LIGHTLINK_CHAIN_ID]: new AppStaticJsonRpcProvider(LIGHTLINK_CHAIN_ID as any, RPC_URLS[LIGHTLINK_CHAIN_ID][0]),
 }
