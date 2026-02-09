@@ -18,7 +18,7 @@ import polygonMaticLogo from 'assets/svg/polygon-matic-logo.svg'
 import ms from 'ms'
 import { darkTheme } from 'theme/colors'
 
-import { SupportedL1ChainId, SupportedL2ChainId } from './chains'
+import { LIGHTLINK_CHAIN_ID, SupportedL1ChainId, SupportedL2ChainId } from './chains'
 import { ARBITRUM_LIST, AVALANCHE_LIST, BASE_LIST, CELO_LIST, OPTIMISM_LIST, PLASMA_BNB_LIST } from './lists'
 
 export const AVERAGE_L1_BLOCK_TIME = ms(`12s`)
@@ -72,9 +72,7 @@ export interface L2ChainInfo extends BaseChainInfo {
   readonly defaultListUrl: string
 }
 
-type ChainInfoMap = { readonly [chainId: number]: L1ChainInfo | L2ChainInfo } & {
-  readonly [chainId in SupportedL2ChainId]: L2ChainInfo
-} & { readonly [chainId in SupportedL1ChainId]: L1ChainInfo }
+type ChainInfoMap = { readonly [chainId: number]: L1ChainInfo | L2ChainInfo }
 
 const CHAIN_INFO: ChainInfoMap = {
   [ChainId.MAINNET]: {
@@ -270,6 +268,16 @@ const CHAIN_INFO: ChainInfoMap = {
     squareLogoUrl: baseSquareLogo,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     color: darkTheme.chain_84531,
+  },
+  [LIGHTLINK_CHAIN_ID]: {
+    networkType: NetworkType.L1,
+    docs: 'https://docs.lightlink.io/',
+    explorer: 'https://phoenix.lightlink.io/',
+    infoLink: 'https://phoenix.lightlink.io/',
+    label: 'LightLink',
+    logoUrl: ethereumLogoUrl, // TODO: Replace with LightLink logo
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    color: '#7B3FE4',
   },
 } as const
 

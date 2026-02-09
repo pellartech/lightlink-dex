@@ -1,5 +1,8 @@
 import { ChainId, SUPPORTED_CHAINS, SupportedChainsType } from '@uniswap/sdk-core'
 
+// LightLink Phoenix Mainnet
+export const LIGHTLINK_CHAIN_ID = 1891 as const
+
 export const CHAIN_IDS_TO_NAMES = {
   [ChainId.MAINNET]: 'mainnet',
   [ChainId.GOERLI]: 'goerli',
@@ -15,13 +18,14 @@ export const CHAIN_IDS_TO_NAMES = {
   [ChainId.BNB]: 'bnb',
   [ChainId.AVALANCHE]: 'avalanche',
   [ChainId.BASE]: 'base',
+  [LIGHTLINK_CHAIN_ID]: 'lightlink',
 } as const
 
 // Include ChainIds in this array if they are not supported by the UX yet, but are already in the SDK.
 const NOT_YET_UX_SUPPORTED_CHAIN_IDS: number[] = [ChainId.BASE_GOERLI]
 
 // TODO: include BASE_GOERLI when routing is implemented
-export type SupportedInterfaceChain = Exclude<SupportedChainsType, ChainId.BASE_GOERLI>
+export type SupportedInterfaceChain = Exclude<SupportedChainsType, ChainId.BASE_GOERLI> | typeof LIGHTLINK_CHAIN_ID
 
 export function isSupportedChain(
   chainId: number | null | undefined | ChainId,
@@ -30,6 +34,8 @@ export function isSupportedChain(
   if (featureFlags && chainId && chainId in featureFlags) {
     return featureFlags[chainId]
   }
+  // LightLink is always supported
+  if (chainId === LIGHTLINK_CHAIN_ID) return true
   return !!chainId && SUPPORTED_CHAINS.indexOf(chainId) !== -1 && NOT_YET_UX_SUPPORTED_CHAIN_IDS.indexOf(chainId) === -1
 }
 
@@ -53,6 +59,7 @@ export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
   ChainId.BNB,
   ChainId.AVALANCHE,
   ChainId.BASE,
+  LIGHTLINK_CHAIN_ID,
 ] as const
 
 /**
@@ -82,6 +89,7 @@ export const L1_CHAIN_IDS = [
   ChainId.CELO_ALFAJORES,
   ChainId.BNB,
   ChainId.AVALANCHE,
+  LIGHTLINK_CHAIN_ID,
 ] as const
 
 export type SupportedL1ChainId = (typeof L1_CHAIN_IDS)[number]
@@ -129,6 +137,8 @@ export function getChainPriority(chainId: ChainId): number {
     case ChainId.CELO:
     case ChainId.CELO_ALFAJORES:
       return 7
+    case LIGHTLINK_CHAIN_ID:
+      return 0 // LightLink is highest priority (only chain)
     default:
       return 8
   }
@@ -137,3 +147,18 @@ export function getChainPriority(chainId: ChainId): number {
 export function isUniswapXSupportedChain(chainId: number) {
   return chainId === ChainId.MAINNET
 }
+
+/**
+ * LightLink contract addresses
+ */
+export const LIGHTLINK_ADDRESSES = {
+  V3_CORE_FACTORY: '0xcb2436774C3e191c85056d248EF4260ce5f27A9D',
+  SWAP_ROUTER_02: '0xaa52bB8110fE38D0d2d2AF0B85C3A3eE622CA455',
+  QUOTER_V2: '0x5911cB3633e764939edc2d92b7e1ad375Bb57649',
+  WETH: '0x7EbeF2A4b1B09381Ec5B9dF8C5c6f2dBECA59c73',
+  NONFUNGIBLE_POSITION_MANAGER: '0x743E03cceB4af2efA3CC76838f6E8B50B63F184c',
+  UNIVERSAL_ROUTER: '0x738fD6d10bCc05c230388B4027CAd37f82fe2AF2',
+  PERMIT2: '0x807F4E281B7A3B324825C64ca53c69F0b418dE40',
+  MULTICALL2: '0x5d6b0f5335ec95cD2aB7E52f2A0750dd86502435',
+  TICK_LENS: '0xB3309C48F8407651D918ca3Da4C45DE40109E641',
+} as const

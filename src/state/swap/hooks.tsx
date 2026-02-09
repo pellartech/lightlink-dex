@@ -257,8 +257,9 @@ export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
   const independentField = parseIndependentFieldURLParameter(parsedQs.exactField)
 
   if (inputCurrency === '' && outputCurrency === '' && typedValue === '' && independentField === Field.INPUT) {
-    // Defaults to having the native currency selected
+    // Defaults to ETH → USDCe on LightLink
     inputCurrency = 'ETH'
+    outputCurrency = '0xbCF8C1B03bBDDA88D579330BDF236B58F8bb2cFd' // USDCe on LightLink
   } else if (inputCurrency === outputCurrency) {
     // clear output if identical
     outputCurrency = ''
