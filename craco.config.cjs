@@ -131,9 +131,12 @@ module.exports = {
       })
 
       // Retain source maps for node_modules packages:
-      webpackConfig.module.rules[0] = {
-        ...webpackConfig.module.rules[0],
-        exclude: /node_modules/,
+      // Find the source-map-loader rule and exclude node_modules
+      const sourceMapRule = webpackConfig.module.rules.find(
+        (rule) => rule.enforce === 'pre' && rule.use && JSON.stringify(rule.use).includes('source-map-loader')
+      )
+      if (sourceMapRule) {
+        sourceMapRule.exclude = /node_modules/
       }
 
       // Configure webpack transpilation (create-react-app specifies transpilation rules in a oneOf):
