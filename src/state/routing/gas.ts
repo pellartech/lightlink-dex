@@ -1,4 +1,5 @@
-import { MaxUint256, PERMIT2_ADDRESS } from '@uniswap/permit2-sdk'
+import { MaxUint256 } from '@uniswap/permit2-sdk'
+import { PERMIT2_ADDRESS } from 'constants/permit2'
 import { Currency } from '@uniswap/sdk-core'
 import ERC20_ABI from 'abis/erc20.json'
 import { Erc20, Weth } from 'abis/types'
