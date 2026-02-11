@@ -137,7 +137,11 @@ module.exports = {
       }
 
       // Configure webpack transpilation (create-react-app specifies transpilation rules in a oneOf):
-      webpackConfig.module.rules[1].oneOf = webpackConfig.module.rules[1].oneOf.map((rule) => {
+      const oneOfRule = webpackConfig.module.rules.find((rule) => Array.isArray(rule.oneOf))
+      if (!oneOfRule) {
+        throw new Error('Could not find oneOf rule in webpack config')
+      }
+      oneOfRule.oneOf = oneOfRule.oneOf.map((rule) => {
         if (rule.loader && rule.loader.match(/babel-loader/)) {
           rule.loader = 'swc-loader'
           delete rule.options
