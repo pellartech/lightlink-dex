@@ -1,0 +1,154 @@
+type Query {
+  ticks(first: Int, skip: Int, where: Tick_filter, orderBy: Tick_orderBy, block: Block_height, subgraphError: _SubgraphErrorPolicy_! = deny): [Tick!]!
+  pools(first: Int, skip: Int, where: Pool_filter, orderBy: Pool_orderBy, orderDirection: OrderDirection, block: Block_height, subgraphError: _SubgraphErrorPolicy_! = deny): [Pool!]!
+  pool(id: ID!, block: Block_height, subgraphError: _SubgraphErrorPolicy_! = deny): Pool
+  tokens(first: Int, skip: Int, where: Token_filter, orderBy: Token_orderBy, orderDirection: OrderDirection, block: Block_height, subgraphError: _SubgraphErrorPolicy_! = deny): [Token!]!
+  token(id: ID!, block: Block_height, subgraphError: _SubgraphErrorPolicy_! = deny): Token
+  bundles(first: Int, where: Bundle_filter, block: Block_height, subgraphError: _SubgraphErrorPolicy_! = deny): [Bundle!]!
+  blocks(first: Int, skip: Int, where: Block_filter, orderBy: Block_orderBy, orderDirection: OrderDirection): [Block!]!
+  _meta(block: Block_height): _Meta_
+}
+
+input Block_height {
+  hash: Bytes
+  number: Int
+  number_gte: Int
+}
+
+enum _SubgraphErrorPolicy_ {
+  allow
+  deny
+}
+
+type Tick {
+  id: ID!
+  tickIdx: BigInt!
+  poolAddress: String
+  pool: Pool!
+  liquidityGross: BigInt!
+  liquidityNet: BigInt!
+  price0: BigDecimal!
+  price1: BigDecimal!
+}
+
+type Pool {
+  id: ID!
+  token0: Token!
+  token1: Token!
+  feeTier: BigInt!
+  liquidity: BigInt!
+  sqrtPrice: BigInt!
+  tick: BigInt
+  totalValueLockedToken0: BigDecimal!
+  totalValueLockedToken1: BigDecimal!
+  totalValueLockedUSD: BigDecimal!
+  totalValueLockedETH: BigDecimal!
+  token0Price: BigDecimal!
+  token1Price: BigDecimal!
+  volumeUSD: BigDecimal!
+  volumeToken0: BigDecimal!
+  volumeToken1: BigDecimal!
+  txCount: BigInt!
+  createdAtTimestamp: BigInt!
+  createdAtBlockNumber: BigInt!
+}
+
+type Token {
+  id: ID!
+  symbol: String!
+  name: String!
+  decimals: BigInt!
+  totalSupply: BigInt!
+  volume: BigDecimal!
+  volumeUSD: BigDecimal!
+  totalValueLocked: BigDecimal!
+  totalValueLockedUSD: BigDecimal!
+  derivedETH: BigDecimal!
+}
+
+type Bundle {
+  id: ID!
+  ethPriceUSD: BigDecimal!
+}
+
+type Block {
+  id: ID!
+  number: BigInt!
+  timestamp: BigInt!
+}
+
+type _Meta_ {
+  block: _Block_!
+  deployment: String!
+  hasIndexingErrors: Boolean!
+}
+
+type _Block_ {
+  hash: Bytes
+  number: Int!
+  timestamp: Int
+}
+
+input Tick_filter {
+  poolAddress: String
+  tickIdx_gte: BigInt
+  tickIdx_lte: BigInt
+}
+
+input Pool_filter {
+  id: ID
+  id_in: [ID!]
+  token0: String
+  token1: String
+  token0_in: [String!]
+  token1_in: [String!]
+}
+
+input Token_filter {
+  id: ID
+  id_in: [ID!]
+  symbol_contains: String
+  name_contains: String
+}
+
+input Bundle_filter {
+  id: ID
+}
+
+input Block_filter {
+  timestamp_gt: BigInt
+  timestamp_gte: BigInt
+  timestamp_lt: BigInt
+  timestamp_lte: BigInt
+}
+
+enum Tick_orderBy {
+  tickIdx
+}
+
+enum Pool_orderBy {
+  totalValueLockedToken0
+  totalValueLockedUSD
+  volumeUSD
+  txCount
+}
+
+enum Token_orderBy {
+  totalValueLockedUSD
+  volumeUSD
+}
+
+enum Block_orderBy {
+  timestamp
+  number
+}
+
+enum OrderDirection {
+  asc
+  desc
+}
+
+scalar BigInt
+scalar BigDecimal
+scalar Bytes
+scalar Int8
