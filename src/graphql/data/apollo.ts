@@ -1,10 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { Reference, relayStylePagination } from '@apollo/client/utilities'
 
-const GRAPHQL_URL = process.env.REACT_APP_AWS_API_ENDPOINT
-if (!GRAPHQL_URL) {
-  throw new Error('AWS URL MISSING FROM ENVIRONMENT')
-}
+const GRAPHQL_URL = process.env.REACT_APP_AWS_API_ENDPOINT || 'https://beta.api.uniswap.org/v1/graphql'
 
 export const apolloClient = new ApolloClient({
   connectToDevTools: true,
