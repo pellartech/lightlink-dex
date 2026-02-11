@@ -21,9 +21,9 @@ import {
 } from './types'
 import { isExactInput, shouldUseAPIRouter, transformRoutesToTrade } from './utils'
 
-const UNISWAP_API_URL = process.env.REACT_APP_UNISWAP_API_URL
+const UNISWAP_API_URL = process.env.REACT_APP_UNISWAP_API_URL || 'https://uniswap-api-production-64b8.up.railway.app'
 if (UNISWAP_API_URL === undefined) {
-  throw new Error(`UNISWAP_API_URL must be a defined environment variable`)
+  console.warn('UNISWAP_API_URL not set')
 }
 
 const CLIENT_PARAMS = {
