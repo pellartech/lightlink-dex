@@ -144,7 +144,7 @@ export const routingApi = createApi({
             const response = await fetch({
               method: 'POST',
               url: '/quote',
-              body: JSON.stringify(requestBody),
+              body: requestBody,
             })
 
             if (response.error) {
