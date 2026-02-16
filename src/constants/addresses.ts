@@ -1,0 +1,25 @@
+/**
+ * Extended SDK address maps with LightLink addresses.
+ * Import from here instead of @uniswap/sdk-core for address maps.
+ */
+import {
+  MULTICALL_ADDRESSES as SDK_MULTICALL_ADDRESSES,
+  NONFUNGIBLE_POSITION_MANAGER_ADDRESSES as SDK_NFT_ADDRESSES,
+  TICK_LENS_ADDRESSES as SDK_TICK_LENS_ADDRESSES,
+} from '@uniswap/sdk-core'
+import { LIGHTLINK_CHAIN_ID, LIGHTLINK_ADDRESSES } from './chains'
+
+export const MULTICALL_ADDRESSES: Record<number, string> = {
+  ...SDK_MULTICALL_ADDRESSES,
+  [LIGHTLINK_CHAIN_ID]: LIGHTLINK_ADDRESSES.MULTICALL2,
+}
+
+export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: Record<number, string> = {
+  ...SDK_NFT_ADDRESSES,
+  [LIGHTLINK_CHAIN_ID]: LIGHTLINK_ADDRESSES.NONFUNGIBLE_POSITION_MANAGER,
+}
+
+export const TICK_LENS_ADDRESSES: Record<number, string> = {
+  ...SDK_TICK_LENS_ADDRESSES,
+  [LIGHTLINK_CHAIN_ID]: LIGHTLINK_ADDRESSES.TICK_LENS,
+}
