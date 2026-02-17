@@ -1,7 +1,7 @@
 import { ChainId, SUPPORTED_CHAINS, SupportedChainsType } from '@uniswap/sdk-core'
 
 // LightLink Phoenix Mainnet
-export const LIGHTLINK_CHAIN_ID = 1891 as const
+export const LIGHTLINK_CHAIN_ID = 1890 as const
 
 export const CHAIN_IDS_TO_NAMES = {
   [ChainId.MAINNET]: 'mainnet',
