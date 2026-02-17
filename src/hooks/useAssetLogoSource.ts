@@ -1,4 +1,6 @@
 import tokenLogoLookup from 'constants/tokenLogoLookup'
+import { LIGHTLINK_TOKEN_LOGOS } from 'constants/tokenLogos'
+import { LIGHTLINK_CHAIN_ID } from 'constants/chains'
 import { isCelo, nativeOnChain } from 'constants/tokens'
 import { checkWarning, WARNING_LEVEL } from 'constants/tokenSafety'
 import { chainIdToNetworkName, getNativeLogoURI } from 'lib/hooks/useCurrencyLogoURIs'
@@ -51,6 +53,12 @@ function getInitialUrl(
 
   if (chainId && isCelo(chainId) && address === nativeOnChain(chainId).wrapped.address) {
     return celoLogo
+  }
+
+  // Check LightLink hardcoded logos first
+  if (chainId === LIGHTLINK_CHAIN_ID && address) {
+    const llLogo = LIGHTLINK_TOKEN_LOGOS[address.toLowerCase()]
+    if (llLogo) return llLogo
   }
 
   if (checksummedAddress) {
