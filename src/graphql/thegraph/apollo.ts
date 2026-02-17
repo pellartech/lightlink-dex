@@ -3,7 +3,10 @@ import { ChainId } from '@uniswap/sdk-core'
 
 import store from '../../state/index'
 
+import { LIGHTLINK_CHAIN_ID } from 'constants/chains'
+
 const CHAIN_SUBGRAPH_URL: Record<number, string> = {
+  [LIGHTLINK_CHAIN_ID]: process.env.REACT_APP_LIGHTLINK_SUBGRAPH_URL || 'https://uniswap-api-production-64b8.up.railway.app/subgraph',
   [ChainId.MAINNET]: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3?source=uniswap',
   [ChainId.ARBITRUM_ONE]: 'https://thegraph.com/hosted-service/subgraph/ianlapham/uniswap-arbitrum-one?source=uniswap',
   [ChainId.OPTIMISM]: 'https://api.thegraph.com/subgraphs/name/ianlapham/optimism-post-regenesis?source=uniswap',
@@ -46,6 +49,10 @@ export const apolloClient = new ApolloClient({
 })
 
 export const chainToApolloClient: Record<number, ApolloClient<NormalizedCacheObject>> = {
+  [LIGHTLINK_CHAIN_ID]: new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: CHAIN_SUBGRAPH_URL[LIGHTLINK_CHAIN_ID],
+  }),
   [ChainId.MAINNET]: new ApolloClient({
     cache: new InMemoryCache(),
     uri: CHAIN_SUBGRAPH_URL[ChainId.MAINNET],
