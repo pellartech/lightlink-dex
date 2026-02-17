@@ -114,13 +114,10 @@ export default function App() {
   }, [pathname])
 
   const [searchParams] = useSearchParams()
+  // NFT routes are permanently disabled for LightLink single-chain DEX
   useEffect(() => {
-    if (searchParams.get('disableNFTs') === 'true') {
-      setShouldDisableNFTRoutes(true)
-    } else if (searchParams.get('disableNFTs') === 'false') {
-      setShouldDisableNFTRoutes(false)
-    }
-  }, [searchParams, setShouldDisableNFTRoutes])
+    setShouldDisableNFTRoutes(true)
+  }, [setShouldDisableNFTRoutes])
 
   useEffect(() => {
     // User properties *must* be set before sending corresponding event properties,
