@@ -28,7 +28,7 @@ interface SubgraphToken {
 }
 
 const QUERY = `{
-  tokens(first: 50, orderBy: volumeUSD, orderDirection: desc, where: { totalValueLockedUSD_gt: "0" }) {
+  tokens(first: 50, orderBy: volumeUSD, orderDirection: desc, where: { volumeUSD_gt: "0" }) {
     id
     symbol
     name
