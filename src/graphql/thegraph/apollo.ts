@@ -6,7 +6,7 @@ import store from '../../state/index'
 import { LIGHTLINK_CHAIN_ID } from 'constants/chains'
 
 const CHAIN_SUBGRAPH_URL: Record<number, string> = {
-  [LIGHTLINK_CHAIN_ID]: process.env.REACT_APP_LIGHTLINK_SUBGRAPH_URL || 'https://graph.phoenix.lightlink.io:8000/subgraphs/name/uniswap-v3-lightlink',
+  [LIGHTLINK_CHAIN_ID]: process.env.REACT_APP_LIGHTLINK_SUBGRAPH_URL || 'https://graph.phoenix.lightlink.io/query/subgraphs/name/uniswap-v3-lightlink',
   [ChainId.MAINNET]: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3?source=uniswap',
   [ChainId.ARBITRUM_ONE]: 'https://thegraph.com/hosted-service/subgraph/ianlapham/uniswap-arbitrum-one?source=uniswap',
   [ChainId.OPTIMISM]: 'https://api.thegraph.com/subgraphs/name/ianlapham/optimism-post-regenesis?source=uniswap',
