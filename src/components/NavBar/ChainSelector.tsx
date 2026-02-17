@@ -27,13 +27,6 @@ export const ChainSelector = ({ leftAlign }: ChainSelectorProps) => {
 
   const info = getChainInfo(LIGHTLINK_CHAIN_ID)
 
-  return (
-    <Box position="relative">
-      <Row data-testid="chain-selector" gap="8" className={styles.ChainSelector}>
-        {info && (
-          <img src={info.logoUrl} alt={info.label} className={styles.Image} data-testid="chain-selector-logo" />
-        )}
-      </Row>
-    </Box>
-  )
+  // Network icon hidden — single-chain deployment
+  return null
 }
