@@ -3,7 +3,7 @@ import { InterfacePageName } from '@uniswap/analytics-events'
 import { Trace } from 'analytics'
 import { MAX_WIDTH_MEDIA_BREAKPOINT, MEDIUM_MEDIA_BREAKPOINT } from 'components/Tokens/constants'
 import { filterStringAtom } from 'components/Tokens/state'
-import NetworkFilter from 'components/Tokens/TokenTable/NetworkFilter'
+// NetworkFilter removed — single chain deployment
 import SearchBar from 'components/Tokens/TokenTable/SearchBar'
 import TimeSelector from 'components/Tokens/TokenTable/TimeSelector'
 import TokenTable from 'components/Tokens/TokenTable/TokenTable'
@@ -83,13 +83,12 @@ const Tokens = () => {
             placement="bottom"
           >
             <ThemedText.LargeHeader>
-              <Trans>Top tokens on Uniswap</Trans>
+              <Trans>Top tokens on LightLink</Trans>
             </ThemedText.LargeHeader>
           </MouseoverTooltip>
         </TitleContainer>
         <FiltersWrapper>
           <FiltersContainer>
-            <NetworkFilter />
             <TimeSelector />
           </FiltersContainer>
           <SearchContainer>
