@@ -1,9 +1,8 @@
 import { Trans } from '@lingui/macro'
-import { PAGE_SIZE, useTopTokens } from 'graphql/data/TopTokens'
-import { validateUrlChainParam } from 'graphql/data/util'
+import { PAGE_SIZE } from 'graphql/data/TopTokens'
+import { useLightLinkTopTokens } from 'graphql/data/lightlink/useLightLinkTopTokens'
 import { ReactNode } from 'react'
 import { AlertTriangle } from 'react-feather'
-import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { MAX_WIDTH_MEDIA_BREAKPOINT } from '../constants'
@@ -75,8 +74,7 @@ function LoadingTokenTable({ rowCount = PAGE_SIZE }: { rowCount?: number }) {
 }
 
 export default function TokenTable() {
-  const chainName = validateUrlChainParam(useParams<{ chainName?: string }>().chainName)
-  const { tokens, tokenSortRank, loadingTokens, sparklines } = useTopTokens(chainName)
+  const { tokens, tokenSortRank, loadingTokens, sparklines } = useLightLinkTopTokens()
 
   /* loading and error state */
   if (loadingTokens && !tokens) {
