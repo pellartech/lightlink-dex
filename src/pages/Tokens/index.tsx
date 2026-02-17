@@ -79,11 +79,11 @@ const Tokens = () => {
       <ExploreContainer>
         <TitleContainer>
           <MouseoverTooltip
-            text={<Trans>This table contains the top tokens by Uniswap volume, sorted based on your input.</Trans>}
+            text="This table contains the top tokens by volume, sorted based on your input."
             placement="bottom"
           >
             <ThemedText.LargeHeader>
-              <Trans>Top tokens on LightLink</Trans>
+              Top tokens on LightLink
             </ThemedText.LargeHeader>
           </MouseoverTooltip>
         </TitleContainer>
