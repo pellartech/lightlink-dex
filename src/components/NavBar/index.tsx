@@ -112,7 +112,7 @@ const Navbar = ({ blur }: { blur: boolean }) => {
               <img
                 src={lightswapLogo}
                 alt="LightSwap"
-                height="36"
+                height="42"
                 data-testid="uniswap-logo"
                 className={styles.logo}
                 onClick={handleUniIconClick}
