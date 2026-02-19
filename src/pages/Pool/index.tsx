@@ -120,16 +120,6 @@ const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   font-size: 16px;
   padding: 6px 8px;
   width: fit-content;
-  background: linear-gradient(93.06deg, #44CCCA 2.66%, #99FFFC 98.99%);
-  border: none;
-  color: ${({ theme }) => theme.black};
-  &:hover {
-    box-shadow: 0px 0px 16px 0px #44CCCA;
-    background: linear-gradient(93.06deg, #44CCCA 2.66%, #99FFFC 98.99%);
-  }
-  &:active {
-    background: linear-gradient(93.06deg, #33BBBA 2.66%, #80EEEC 98.99%);
-  }
   @media (max-width: ${({ theme }) => `${theme.breakpoint.sm}px`}) {
     flex: 1 1 auto;
     width: 50%;

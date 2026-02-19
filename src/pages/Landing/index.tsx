@@ -192,13 +192,13 @@ const LandingButton = styled(BaseButton)`
 `
 
 const ButtonCTA = styled(LandingButton)`
-  background: linear-gradient(93.06deg, #44CCCA 2.66%, #99FFFC 98.99%);
+  background-color: ${({ theme }) => theme.accent2};
   border: none;
-  color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.accent1};
   transition: ${({ theme }) => `all ${theme.transition.duration.medium} ${theme.transition.timing.ease}`};
 
   &:hover {
-    box-shadow: 0px 0px 16px 0px #44CCCA;
+    opacity: 0.9;
   }
 `
 
