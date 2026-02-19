@@ -9,6 +9,7 @@ import { useIsPoolsPage } from 'hooks/useIsPoolsPage'
 import { Box } from 'nft/components/Box'
 import { Row } from 'nft/components/Flex'
 import { UniIcon } from 'nft/components/icons'
+import lightswapLogo from 'assets/lightswap-logo.png'
 import { useProfilePageState } from 'nft/hooks'
 import { ProfilePageStateType } from 'nft/types'
 import { ReactNode, useCallback } from 'react'
@@ -108,12 +109,14 @@ const Navbar = ({ blur }: { blur: boolean }) => {
         <Box display="flex" height="full" flexWrap="nowrap">
           <Box className={styles.leftSideContainer}>
             <Box className={styles.logoContainer}>
-              <UniIcon
-                width="36"
+              <img
+                src={lightswapLogo}
+                alt="LightSwap"
                 height="36"
                 data-testid="uniswap-logo"
                 className={styles.logo}
                 onClick={handleUniIconClick}
+                style={{ cursor: 'pointer' }}
               />
             </Box>
             <Box display={{ sm: 'flex', lg: 'none' }}>
