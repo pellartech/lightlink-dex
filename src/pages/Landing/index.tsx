@@ -48,7 +48,7 @@ const Gradient = styled.div<{ isDarkMode: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(rgba(56, 75, 143, 0) 0%, rgb(56 75 143 / 100%) 45%);
+          background: linear-gradient(rgba(14, 14, 14, 0) 0%, rgb(14 14 14 / 100%) 45%);
         `
       : css`
           background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(255 255 255 /100%) 45%);
@@ -254,7 +254,7 @@ const AboutContentContainer = styled.div<{ isDarkMode: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(179.82deg, rgba(0, 0, 0, 0) 0.16%, #384B8F 99.85%);
+          background: linear-gradient(179.82deg, rgba(0, 0, 0, 0) 0.16%, #0E0E0E 99.85%);
         `
       : css`
           background: linear-gradient(179.82deg, rgba(255, 255, 255, 0) 0.16%, #eaeaea 99.85%);
