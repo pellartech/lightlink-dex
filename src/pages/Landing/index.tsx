@@ -80,7 +80,7 @@ const Glow = styled.div`
   position: absolute;
   top: 68px;
   bottom: 0;
-  background: radial-gradient(72.04% 72.04% at 50% 3.99%, #44CCCA 0%, rgba(68, 204, 202, 0) 100%);
+  background: transparent;
   filter: blur(72px);
   border-radius: 24px;
   max-width: 480px;
@@ -133,10 +133,10 @@ const TitleText = styled.h1<{ isDarkMode: boolean; $visible: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(20deg, rgba(153, 255, 252, 1) 10%, rgba(68, 204, 202, 1) 100%);
+          background: linear-gradient(20deg, rgba(102, 255, 252, 0.9) 10%, rgba(68, 204, 202, 1) 100%);
         `
       : css`
-          background: linear-gradient(10deg, rgba(68, 204, 202, 1) 0%, rgba(153, 255, 252, 1) 100%);
+          background: linear-gradient(10deg, rgba(68, 204, 202, 1) 0%, rgba(102, 255, 252, 0.9) 100%);
         `};
   background-clip: text;
   -webkit-background-clip: text;
@@ -459,14 +459,11 @@ export default function Landing() {
           </LearnMoreContainer>
 
           <DownloadWalletLink
-            {...getDownloadAppLinkProps({
-              // landing page specific tracking params
-              microSiteParams: `utm_source=home_page&utm_medium=webapp&utm_campaign=wallet_microsite&utm_id=1`,
-              appStoreParams: `ct=Uniswap-Home-Page&mt=8`,
-            })}
+            href="https://lightlink.io/wallet"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <AppleLogo width="20" height="20" />
-            Download the Uniswap Wallet for iOS
+            Sign up for Stella Wallet
           </DownloadWalletLink>
         </ContentContainer>
         <AboutContentContainer isDarkMode={isDarkMode}>

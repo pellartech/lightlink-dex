@@ -109,8 +109,8 @@ const Navbar = ({ blur }: { blur: boolean }) => {
           <Box className={styles.leftSideContainer}>
             <Box className={styles.logoContainer}>
               <UniIcon
-                width="48"
-                height="48"
+                width="36"
+                height="36"
                 data-testid="uniswap-logo"
                 className={styles.logo}
                 onClick={handleUniIconClick}
