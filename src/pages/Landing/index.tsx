@@ -80,7 +80,7 @@ const Glow = styled.div`
   position: absolute;
   top: 68px;
   bottom: 0;
-  background: transparent;
+  background: radial-gradient(72.04% 72.04% at 50% 3.99%, #44CCCA 0%, rgba(68, 204, 202, 0) 100%);
   filter: blur(72px);
   border-radius: 24px;
   max-width: 480px;
@@ -133,10 +133,10 @@ const TitleText = styled.h1<{ isDarkMode: boolean; $visible: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(20deg, rgba(102, 255, 252, 0.9) 10%, rgba(68, 204, 202, 1) 100%);
+          background: linear-gradient(20deg, rgba(153, 255, 252, 1) 10%, rgba(68, 204, 202, 1) 100%);
         `
       : css`
-          background: linear-gradient(10deg, rgba(68, 204, 202, 1) 0%, rgba(102, 255, 252, 0.9) 100%);
+          background: linear-gradient(10deg, rgba(68, 204, 202, 1) 0%, rgba(153, 255, 252, 1) 100%);
         `};
   background-clip: text;
   -webkit-background-clip: text;
@@ -463,7 +463,7 @@ export default function Landing() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Sign up for Stella Wallet
+            Sign Up for Stella Wallet on iOS and Android
           </DownloadWalletLink>
         </ContentContainer>
         <AboutContentContainer isDarkMode={isDarkMode}>
