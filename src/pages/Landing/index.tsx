@@ -80,7 +80,7 @@ const Glow = styled.div`
   position: absolute;
   top: 68px;
   bottom: 0;
-  background: radial-gradient(72.04% 72.04% at 50% 3.99%, #5BA8D9 0%, rgba(91, 168, 217, 0) 100%);
+  background: radial-gradient(72.04% 72.04% at 50% 3.99%, #44CCCA 0%, rgba(68, 204, 202, 0) 100%);
   filter: blur(72px);
   border-radius: 24px;
   max-width: 480px;
@@ -133,10 +133,10 @@ const TitleText = styled.h1<{ isDarkMode: boolean; $visible: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(20deg, rgba(184, 226, 255, 1) 10%, rgba(91, 168, 217, 1) 100%);
+          background: linear-gradient(20deg, rgba(153, 255, 252, 1) 10%, rgba(68, 204, 202, 1) 100%);
         `
       : css`
-          background: linear-gradient(10deg, rgba(91, 168, 217, 1) 0%, rgba(184, 226, 255, 1) 100%);
+          background: linear-gradient(10deg, rgba(68, 204, 202, 1) 0%, rgba(153, 255, 252, 1) 100%);
         `};
   background-clip: text;
   -webkit-background-clip: text;
@@ -192,13 +192,13 @@ const LandingButton = styled(BaseButton)`
 `
 
 const ButtonCTA = styled(LandingButton)`
-  background: linear-gradient(93.06deg, #5BA8D9 2.66%, #B8E2FF 98.99%);
+  background: linear-gradient(93.06deg, #44CCCA 2.66%, #99FFFC 98.99%);
   border: none;
   color: ${({ theme }) => theme.white};
   transition: ${({ theme }) => `all ${theme.transition.duration.medium} ${theme.transition.timing.ease}`};
 
   &:hover {
-    box-shadow: 0px 0px 16px 0px #5BA8D9;
+    box-shadow: 0px 0px 16px 0px #44CCCA;
   }
 `
 

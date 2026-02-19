@@ -30,7 +30,7 @@ const setBackground = (newValues: TargetBackgroundStyles) =>
 function setDefaultBackground(backgroundRadialGradientElement: HTMLElement, darkMode?: boolean) {
   setBackground(initialStyles)
   const defaultLightGradient =
-    'radial-gradient(100% 100% at 50% 0%, rgba(120, 199, 248, 0) 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF'
+    'radial-gradient(100% 100% at 50% 0%, rgba(102, 255, 252, 0) 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF'
   const defaultDarkGradient = 'linear-gradient(180deg, #131313 0%, #131313 100%)'
   backgroundRadialGradientElement.style.background = darkMode ? defaultDarkGradient : defaultLightGradient
 }
