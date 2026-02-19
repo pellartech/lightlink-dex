@@ -57,7 +57,7 @@ const SocialLinks = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  margin: 20px 0 0 0;
+  margin: 0;
 `
 
 const SocialLink = styled.a`
@@ -147,7 +147,6 @@ const TelegramIcon = ({ size = 32 }: { size?: number }) => (
 const LogoSectionContent = () => {
   return (
     <>
-      <StyledLogo src={lightswapLogo} alt="LightSwap Logo" />
       <SocialLinks>
         <SocialLink href="mailto:hello@lightlink.io">
           <EmailIcon size={28} />
