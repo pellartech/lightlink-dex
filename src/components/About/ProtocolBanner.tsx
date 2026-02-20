@@ -89,13 +89,13 @@ const ProtocolBanner = () => {
   return (
     <Banner isDarkMode={isDarkMode}>
       <TextContainer>
-        <HeaderText>Powered by the Uniswap Protocol</HeaderText>
+        <HeaderText>Optimized by Lightswap Routing, powered by Uniswap Protocol Liquidity</HeaderText>
         <DescriptionText>
-          The leading decentralized crypto trading protocol, governed by a global community.
+          Next-generation trade execution for the Uniswap ecosystem, driven by Lightswap's native routing intelligence.
         </DescriptionText>
       </TextContainer>
       <BannerButtonContainer>
-        <BannerButton width="200px" as="a" href="https://uniswap.org" rel="noopener noreferrer" target="_blank">
+        <BannerButton width="200px" as="a" href="https://lightlink.io" rel="noopener noreferrer" target="_blank">
           Learn more
         </BannerButton>
       </BannerButtonContainer>
