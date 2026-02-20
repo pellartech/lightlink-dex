@@ -91,7 +91,7 @@ const ProtocolBanner = () => {
       <TextContainer>
         <HeaderText>Optimized by Lightswap Routing, powered by Uniswap Protocol Liquidity</HeaderText>
         <DescriptionText>
-          Next-gen trade execution for the ETH ecosystem
+          Next-gen trade execution for the Ethereum ecosystem.
         </DescriptionText>
       </TextContainer>
       <BannerButtonContainer>
