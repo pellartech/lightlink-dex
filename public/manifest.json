@@ -3,7 +3,7 @@
   "display": "standalone",
   "homepage_url": "https://app.uniswap.org",
   "providedBy": {
-    "name": "Uniswap",
+    "name": "Lightswap",
     "url": "https://uniswap.org"
   },
   "icons": [
@@ -21,10 +21,10 @@
     }
   ],
   "orientation": "portrait",
-  "name": "Uniswap",
-  "description": "Swap or provide liquidity on the Uniswap Protocol",
+  "name": "Lightswap",
+  "description": "Swap or provide liquidity on Lightswap DEX",
   "iconPath": "./images/256x256_App_Icon_Pink.svg",
-  "short_name": "Uniswap",
+  "short_name": "Lightswap",
   "start_url": ".",
   "theme_color": "#FC72FF"
 }

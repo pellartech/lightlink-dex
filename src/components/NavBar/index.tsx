@@ -111,7 +111,7 @@ const Navbar = ({ blur }: { blur: boolean }) => {
             <Box className={styles.logoContainer}>
               <img
                 src={lightswapLogo}
-                alt="LightSwap"
+                alt="Lightswap"
                 height="42"
                 data-testid="uniswap-logo"
                 className={styles.logo}
