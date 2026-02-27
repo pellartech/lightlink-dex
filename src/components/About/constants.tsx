@@ -59,13 +59,13 @@ export const MORE_CARDS = [
     elementName: InterfaceElementName.ABOUT_PAGE_EARN_CARD,
   },
   {
-    to: 'https://docs.uniswap.org',
+    to: 'https://lightlink.io/wallet',
     external: true,
-    title: 'Build dApps',
-    description: 'Build apps and tools on the largest DeFi protocol on Ethereum.',
+    title: 'Stella Wallet',
+    description: 'Get Stella Wallet now to be first in line to access our upcoming Agentic Trading features!',
     lightIcon: <Terminal color={lightTheme.neutral3} size={48} />,
-    darkIcon: <StyledCardLogo src={darkTerminalImgSrc} alt="Developers" />,
-    cta: 'Developer docs',
+    darkIcon: <StyledCardLogo src={darkTerminalImgSrc} alt="Stella Wallet" />,
+    cta: 'Get Stella Wallet',
     elementName: InterfaceElementName.ABOUT_PAGE_DEV_DOCS_CARD,
   },
 ]
