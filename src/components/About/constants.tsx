@@ -1,5 +1,5 @@
 import { InterfaceElementName } from '@uniswap/analytics-events'
-import { DollarSign, Terminal } from 'react-feather'
+import { DollarSign } from 'react-feather'
 import styled from 'styled-components'
 import { lightTheme } from 'theme/colors'
 
@@ -63,7 +63,7 @@ export const MORE_CARDS = [
     external: true,
     title: 'Stella Wallet',
     description: 'Get Stella Wallet now to be first in line to access our upcoming Agentic Trading features!',
-    lightIcon: <Terminal color={lightTheme.neutral3} size={48} />,
+    lightIcon: <span style={{ fontSize: 32, color: lightTheme.neutral3, fontFamily: 'monospace', fontWeight: 'bold' }}>{'>_>'}</span>,
     darkIcon: <StyledCardLogo src={darkTerminalImgSrc} alt="Stella Wallet" />,
     cta: 'Get Stella Wallet',
     elementName: InterfaceElementName.ABOUT_PAGE_DEV_DOCS_CARD,
