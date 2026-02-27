@@ -463,7 +463,7 @@ export default function Landing() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Sign Up for Stella Wallet on iOS and Android
+            Get Stella Wallet on iOS and Android
           </DownloadWalletLink>
         </ContentContainer>
         <AboutContentContainer isDarkMode={isDarkMode}>
