@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro'
 import { PAGE_SIZE } from 'graphql/data/TopTokens'
-import { useLightLinkTopTokens } from 'graphql/data/lightlink/useLightLinkTopTokens'
+import { useLightLinkTopTokens } from 'graphql/data/useLightLinkTopTokens'
 import { ReactNode } from 'react'
 import { AlertTriangle } from 'react-feather'
 import styled from 'styled-components'

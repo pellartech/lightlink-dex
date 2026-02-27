@@ -60,7 +60,7 @@ const LoaderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: pink;
+  color: cyan;
 `
 
 const BuyNowContainer = styled(LoadingBubble)`

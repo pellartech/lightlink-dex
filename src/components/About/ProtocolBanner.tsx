@@ -5,7 +5,7 @@ import { useIsDarkMode } from 'theme/components/ThemeToggle'
 
 import meshSrc from './images/Mesh.png'
 
-const DARK_MODE_GRADIENT = 'radial-gradient(101.8% 4091.31% at 0% 0%, #4673FA 0%, #9646FA 100%)'
+const DARK_MODE_GRADIENT = 'linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 50%, #1B3A2A 100%)'
 
 const Banner = styled.div<{ isDarkMode: boolean }>`
   height: 340px;
@@ -25,7 +25,7 @@ const Banner = styled.div<{ isDarkMode: boolean }>`
   background: ${({ isDarkMode }) =>
     isDarkMode
       ? `url(${meshSrc}), ${DARK_MODE_GRADIENT}`
-      : `url(${meshSrc}), linear-gradient(93.06deg, #FF00C7 2.66%, #FF9FFB 98.99%);`};
+      : `url(${meshSrc}), linear-gradient(135deg, #2D2D2D 0%, #3D3D3D 50%, #1B3A2A 100%)`};
 
   @media screen and (min-width: ${BREAKPOINTS.lg}px) {
     height: 140px;
@@ -42,12 +42,12 @@ const TextContainer = styled.div`
 
 const HeaderText = styled.div`
   font-weight: 535;
-  font-size: 28px;
-  line-height: 36px;
+  font-size: 20px;
+  line-height: 28px;
 
   @media screen and (min-width: ${BREAKPOINTS.xl}px) {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 22px;
+    line-height: 30px;
   }
 `
 
@@ -89,13 +89,13 @@ const ProtocolBanner = () => {
   return (
     <Banner isDarkMode={isDarkMode}>
       <TextContainer>
-        <HeaderText>Powered by the Uniswap Protocol</HeaderText>
+        <HeaderText>Optimized by Lightswap Routing, powered by Uniswap Protocol Liquidity</HeaderText>
         <DescriptionText>
-          The leading decentralized crypto trading protocol, governed by a global community.
+          Next-gen trade execution for the Ethereum ecosystem.
         </DescriptionText>
       </TextContainer>
       <BannerButtonContainer>
-        <BannerButton width="200px" as="a" href="https://uniswap.org" rel="noopener noreferrer" target="_blank">
+        <BannerButton width="200px" as="a" href="https://docs.lightlink.io/" rel="noopener noreferrer" target="_blank">
           Learn more
         </BannerButton>
       </BannerButtonContainer>
