@@ -79,7 +79,7 @@ const Tokens = () => {
       <ExploreContainer>
         <TitleContainer>
           <MouseoverTooltip
-            text="This table contains the top tokens by volume, sorted based on your input."
+            text="This table contains the top tokens on LightLink, sorted based on your input."
             placement="bottom"
           >
             <ThemedText.LargeHeader>
@@ -89,7 +89,7 @@ const Tokens = () => {
         </TitleContainer>
         <FiltersWrapper>
           <FiltersContainer>
-            <TimeSelector />
+            {/* TimeSelector hidden */}
           </FiltersContainer>
           <SearchContainer>
             <SearchBar />

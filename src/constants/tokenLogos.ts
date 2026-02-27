@@ -17,4 +17,5 @@ export const LIGHTLINK_TOKEN_LOGOS: Record<string, string> = {
   '0x18fb38404dadee1727be4b805c5b242b5413fa40': USDC_LOGO,   // USDC
   '0x808d7c71ad2ba3fa531b068a2417c63106bc0949': USDT_LOGO,   // USDT
   '0x519d3443cacc61bd844546edaea48e5502021802': LL_LOGO,     // LL
+  '0xd9d7123552fa2bedb2348bb562576d67f6e8e96e': LL_LOGO,     // LL.e (bridged)
 }

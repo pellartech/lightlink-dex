@@ -470,7 +470,7 @@ export const LoadedRow = forwardRef((props: LoadedRowProps, ref: ForwardedRef<HT
   return (
     <div ref={ref} data-testid={`token-table-row-${token.address}`}>
       <StyledLink
-        to={getTokenDetailsURL(token)}
+        to={`/tokens/lightlink/${token.address}`}
         onClick={() =>
           sendAnalyticsEvent(InterfaceEventName.EXPLORE_TOKEN_ROW_CLICKED, exploreTokenSelectedEventProperties)
         }
