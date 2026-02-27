@@ -88,7 +88,7 @@ const Tokens = () => {
         </TitleContainer>
         <FiltersWrapper>
           <FiltersContainer>
-            <TimeSelector />
+            {/* TimeSelector hidden */}
           </FiltersContainer>
           <SearchContainer>
             <SearchBar />

@@ -173,12 +173,7 @@ export default function LightLinkTokenDetails({
               <ParentSize>
                 {({ width }) => <PriceChart prices={prices} width={width} height={392} timePeriod={timePeriod} />}
               </ParentSize>
-              <TimePeriodSelector
-                currentTimePeriod={timePeriod}
-                onTimeChange={(t: TimePeriod) => {
-                  startTransition(() => onChangeTimePeriod(t))
-                }}
-              />
+              {/* Time period selector hidden */}
             </ChartContainer>
 
             <StatsSection
