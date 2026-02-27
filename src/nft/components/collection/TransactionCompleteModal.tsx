@@ -201,7 +201,7 @@ const TxCompleteModal = () => {
                       width={{ sm: 'full', md: 'half' }}
                       paddingRight={{ sm: '0', md: '32' }}
                     >
-                      <LightningBoltIcon color="pink" />
+                      <LightningBoltIcon color="cyan" />
                       <p className={styles.subtitle}>Instant Refund</p>
                       <p className={styles.interStd}>
                         Uniswap returned{' '}

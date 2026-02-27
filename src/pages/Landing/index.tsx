@@ -48,7 +48,7 @@ const Gradient = styled.div<{ isDarkMode: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(rgba(8, 10, 24, 0) 0%, rgb(8 10 24 / 100%) 45%);
+          background: linear-gradient(rgba(14, 14, 14, 0) 0%, rgb(14 14 14 / 100%) 45%);
         `
       : css`
           background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(255 255 255 /100%) 45%);
@@ -80,7 +80,7 @@ const Glow = styled.div`
   position: absolute;
   top: 68px;
   bottom: 0;
-  background: radial-gradient(72.04% 72.04% at 50% 3.99%, #ff37eb 0%, rgba(166, 151, 255, 0) 100%);
+  background: radial-gradient(72.04% 72.04% at 50% 3.99%, #44CCCA 0%, rgba(68, 204, 202, 0) 100%);
   filter: blur(72px);
   border-radius: 24px;
   max-width: 480px;
@@ -133,10 +133,10 @@ const TitleText = styled.h1<{ isDarkMode: boolean; $visible: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(20deg, rgba(255, 244, 207, 1) 10%, rgba(255, 87, 218, 1) 100%);
+          background: linear-gradient(20deg, rgba(153, 255, 252, 1) 10%, rgba(68, 204, 202, 1) 100%);
         `
       : css`
-          background: linear-gradient(10deg, rgba(255, 79, 184, 1) 0%, rgba(255, 159, 251, 1) 100%);
+          background: linear-gradient(10deg, rgba(68, 204, 202, 1) 0%, rgba(153, 255, 252, 1) 100%);
         `};
   background-clip: text;
   -webkit-background-clip: text;
@@ -192,13 +192,13 @@ const LandingButton = styled(BaseButton)`
 `
 
 const ButtonCTA = styled(LandingButton)`
-  background: linear-gradient(93.06deg, #ff00c7 2.66%, #ff9ffb 98.99%);
+  background-color: ${({ theme }) => theme.accent2};
   border: none;
-  color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.accent1};
   transition: ${({ theme }) => `all ${theme.transition.duration.medium} ${theme.transition.timing.ease}`};
 
   &:hover {
-    box-shadow: 0px 0px 16px 0px #ff00c7;
+    opacity: 0.9;
   }
 `
 
@@ -254,7 +254,7 @@ const AboutContentContainer = styled.div<{ isDarkMode: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(179.82deg, rgba(0, 0, 0, 0) 0.16%, #050026 99.85%);
+          background: linear-gradient(179.82deg, rgba(0, 0, 0, 0) 0.16%, #0E0E0E 99.85%);
         `
       : css`
           background: linear-gradient(179.82deg, rgba(255, 255, 255, 0) 0.16%, #eaeaea 99.85%);
@@ -459,14 +459,11 @@ export default function Landing() {
           </LearnMoreContainer>
 
           <DownloadWalletLink
-            {...getDownloadAppLinkProps({
-              // landing page specific tracking params
-              microSiteParams: `utm_source=home_page&utm_medium=webapp&utm_campaign=wallet_microsite&utm_id=1`,
-              appStoreParams: `ct=Uniswap-Home-Page&mt=8`,
-            })}
+            href="https://lightlink.io/wallet"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <AppleLogo width="20" height="20" />
-            Download the Uniswap Wallet for iOS
+            Get Stella Wallet on iOS and Android
           </DownloadWalletLink>
         </ContentContainer>
         <AboutContentContainer isDarkMode={isDarkMode}>
