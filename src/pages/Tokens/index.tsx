@@ -83,7 +83,7 @@ const Tokens = () => {
             placement="bottom"
           >
             <ThemedText.LargeHeader>
-              Top tokens on LightLink
+              Top Tokens on LightLink
             </ThemedText.LargeHeader>
           </MouseoverTooltip>
         </TitleContainer>
