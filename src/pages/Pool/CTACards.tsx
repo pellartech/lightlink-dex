@@ -67,23 +67,13 @@ export default function CTACards() {
 
   return (
     <CTASection>
-      <CTA href="https://support.uniswap.org/hc/en-us/categories/8122334631437-Providing-Liquidity-">
-        <ResponsiveColumn>
-          <HeaderText>
-            <Trans>Learn about providing liquidity</Trans> ↗
-          </HeaderText>
-          <ThemedText.DeprecatedBody style={{ alignItems: 'center', display: 'flex', fontWeight: 485 }}>
-            <Trans>Check out our v3 LP walkthrough and migration guides.</Trans>
-          </ThemedText.DeprecatedBody>
-        </ResponsiveColumn>
-      </CTA>
       <CTA data-testid="cta-infolink" href={infoLink + 'pools'}>
         <ResponsiveColumn>
           <HeaderText style={{ alignSelf: 'flex-start' }}>
             <Trans>Top pools</Trans> ↗
           </HeaderText>
           <ThemedText.DeprecatedBody style={{ alignSelf: 'flex-start', fontWeight: 485 }}>
-            <Trans>Explore Uniswap Analytics.</Trans>
+            <Trans>Explore Pools on LightLink.</Trans>
           </ThemedText.DeprecatedBody>
         </ResponsiveColumn>
       </CTA>
