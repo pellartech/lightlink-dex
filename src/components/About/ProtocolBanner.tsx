@@ -20,7 +20,7 @@ const Banner = styled.div`
 
   box-shadow: 0px 10px 24px rgba(51, 53, 72, 0.04);
 
-  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(${bannerBg});
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${bannerBg});
   background-size: cover;
   background-position: center;
 
@@ -78,9 +78,7 @@ const BannerButtonContainer = styled.div`
 
 const BannerButton = styled(ButtonEmpty)`
   color: white;
-  border: 2px solid white;
-  border-radius: 12px;
-  font-weight: 535;
+  border: 1px solid white;
 `
 
 const ProtocolBanner = () => {
