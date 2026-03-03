@@ -151,19 +151,18 @@ export const MenuDropdown = () => {
                   </PrimaryMenuRow>
                 </Box>
                 <PrimaryMenuRow href="https://lightlink.io/wallet" close={toggleOpen}>
-                  <Icon>
-                    <AppleLogo width="24px" height="24px" fill={theme.neutral1} />
-                  </Icon>
                   <PrimaryMenuRow.Text>
-                    <Trans>Get Stella Wallet</Trans>
+                    Get Stella Wallet
                   </PrimaryMenuRow.Text>
                 </PrimaryMenuRow>
                 <PrimaryMenuRow href="https://phoenix.lightlink.io">
-                  <Icon>
-                    <BarChartIcon width={24} height={24} color={theme.neutral1} />
-                  </Icon>
                   <PrimaryMenuRow.Text>
-                    <Trans>LightLink Explorer</Trans>
+                    LL Blockchain Explorer
+                  </PrimaryMenuRow.Text>
+                </PrimaryMenuRow>
+                <PrimaryMenuRow href="https://docs.lightlink.io/">
+                  <PrimaryMenuRow.Text>
+                    Documentation
                   </PrimaryMenuRow.Text>
                 </PrimaryMenuRow>
               </Column>
@@ -175,14 +174,20 @@ export const MenuDropdown = () => {
                 alignItems={{ sm: 'center', md: 'flex-start' }}
                 paddingX="8"
               >
-                <SecondaryLinkedText href="https://docs.lightlink.io/">
-                  <Trans>LightLink Docs</Trans> ↗
+                <SecondaryLinkedText href="mailto:hello@lightlink.io">
+                  ✉️ Email ↗
                 </SecondaryLinkedText>
                 <SecondaryLinkedText href="https://discord.com/invite/lightlinkchain">
-                  <Trans>Discord</Trans> ↗
+                  Discord ↗
                 </SecondaryLinkedText>
                 <SecondaryLinkedText href="https://x.com/lightlinkchain">
-                  <Trans>Twitter / X</Trans> ↗
+                  Twitter / X ↗
+                </SecondaryLinkedText>
+                <SecondaryLinkedText href="https://www.linkedin.com/company/lightlinkchain">
+                  LinkedIn ↗
+                </SecondaryLinkedText>
+                <SecondaryLinkedText href="https://t.me/lightlinkLL">
+                  Telegram ↗
                 </SecondaryLinkedText>
                 <SecondaryLinkedText
                   onClick={() => {
@@ -203,17 +208,6 @@ export const MenuDropdown = () => {
                   </SecondaryLinkedText>
                 )}
               </Box>
-              <IconRow>
-                <Icon href="https://discord.com/invite/FCfyBSbCU5">
-                  <DiscordIconMenu className={styles.hover} width={24} height={24} color={themeVars.colors.neutral2} />
-                </Icon>
-                <Icon href="https://twitter.com/Uniswap">
-                  <TwitterIconMenu className={styles.hover} width={24} height={24} color={themeVars.colors.neutral2} />
-                </Icon>
-                <Icon href="https://github.com/Uniswap">
-                  <GithubIconMenu className={styles.hover} width={24} height={24} color={themeVars.colors.neutral2} />
-                </Icon>
-              </IconRow>
             </Column>
           </NavDropdown>
         )}
