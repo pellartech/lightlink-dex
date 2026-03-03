@@ -150,36 +150,20 @@ export const MenuDropdown = () => {
                     </PrimaryMenuRow.Text>
                   </PrimaryMenuRow>
                 </Box>
-                <Box
-                  onClick={() =>
-                    openDownloadApp({
-                      element: InterfaceElementName.UNISWAP_WALLET_MODAL_DOWNLOAD_BUTTON,
-                    })
-                  }
-                >
-                  <PrimaryMenuRow close={toggleOpen}>
-                    <Icon>
-                      <AppleLogo width="24px" height="24px" fill={theme.neutral1} />
-                    </Icon>
-                    <PrimaryMenuRow.Text>
-                      <Trans>Download Uniswap Wallet</Trans>
-                    </PrimaryMenuRow.Text>
-                  </PrimaryMenuRow>
-                </Box>
-                <PrimaryMenuRow to="/vote" close={toggleOpen}>
+                <PrimaryMenuRow href="https://lightlink.io/wallet" close={toggleOpen}>
                   <Icon>
-                    <GovernanceIcon width={24} height={24} color={theme.neutral1} />
+                    <AppleLogo width="24px" height="24px" fill={theme.neutral1} />
                   </Icon>
                   <PrimaryMenuRow.Text>
-                    <Trans>Vote in governance</Trans>
+                    <Trans>Get Stella Wallet</Trans>
                   </PrimaryMenuRow.Text>
                 </PrimaryMenuRow>
-                <PrimaryMenuRow href="https://info.uniswap.org/#/">
+                <PrimaryMenuRow href="https://phoenix.lightlink.io">
                   <Icon>
                     <BarChartIcon width={24} height={24} color={theme.neutral1} />
                   </Icon>
                   <PrimaryMenuRow.Text>
-                    <Trans>View more analytics</Trans>
+                    <Trans>LightLink Explorer</Trans>
                   </PrimaryMenuRow.Text>
                 </PrimaryMenuRow>
               </Column>
@@ -191,14 +175,14 @@ export const MenuDropdown = () => {
                 alignItems={{ sm: 'center', md: 'flex-start' }}
                 paddingX="8"
               >
-                <SecondaryLinkedText href="https://help.uniswap.org/en/">
-                  <Trans>Help center</Trans> ↗
+                <SecondaryLinkedText href="https://docs.lightlink.io/">
+                  <Trans>LightLink Docs</Trans> ↗
                 </SecondaryLinkedText>
-                <SecondaryLinkedText href="https://docs.uniswap.org/">
-                  <Trans>Documentation</Trans> ↗
+                <SecondaryLinkedText href="https://discord.com/invite/lightlinkchain">
+                  <Trans>Discord</Trans> ↗
                 </SecondaryLinkedText>
-                <SecondaryLinkedText href="https://uniswap.canny.io/feature-requests">
-                  <Trans>Feedback</Trans> ↗
+                <SecondaryLinkedText href="https://x.com/lightlinkchain">
+                  <Trans>Twitter / X</Trans> ↗
                 </SecondaryLinkedText>
                 <SecondaryLinkedText
                   onClick={() => {
