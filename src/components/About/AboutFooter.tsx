@@ -6,7 +6,7 @@ import { BREAKPOINTS } from 'theme'
 import { ExternalLink, StyledRouterLink } from 'theme/components'
 import { useIsDarkMode } from 'theme/components/ThemeToggle'
 
-import lightswapLogo from 'assets/lightswap-logo.png'
+import stellaswapLogo from 'assets/stellaswap-logo.png'
 
 const Footer = styled.div`
   display: flex;

@@ -89,7 +89,7 @@ const ProtocolBanner = () => {
   return (
     <Banner isDarkMode={isDarkMode}>
       <TextContainer>
-        <HeaderText>Optimized by Lightswap Routing, powered by Uniswap Protocol Liquidity</HeaderText>
+        <HeaderText>Optimized by StellaSwap Routing, powered by Uniswap Protocol Liquidity</HeaderText>
         <DescriptionText>
           Next-gen trade execution for the Ethereum ecosystem.
         </DescriptionText>
