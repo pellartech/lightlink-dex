@@ -1,13 +1,11 @@
 import { ButtonEmpty } from 'components/Button'
 import styled from 'styled-components'
 import { BREAKPOINTS } from 'theme'
-import { useIsDarkMode } from 'theme/components/ThemeToggle'
+// dark mode no longer needed - using static banner image
 
-import meshSrc from './images/Mesh.png'
+import bannerBg from 'assets/protocol-banner-bg.png'
 
-const DARK_MODE_GRADIENT = 'linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 50%, #1B3A2A 100%)'
-
-const Banner = styled.div<{ isDarkMode: boolean }>`
+const Banner = styled.div`
   height: 340px;
   width: 100%;
   border-radius: 32px;
@@ -22,10 +20,9 @@ const Banner = styled.div<{ isDarkMode: boolean }>`
 
   box-shadow: 0px 10px 24px rgba(51, 53, 72, 0.04);
 
-  background: ${({ isDarkMode }) =>
-    isDarkMode
-      ? `url(${meshSrc}), ${DARK_MODE_GRADIENT}`
-      : `url(${meshSrc}), linear-gradient(135deg, #2D2D2D 0%, #3D3D3D 50%, #1B3A2A 100%)`};
+  background: url(${bannerBg});
+  background-size: cover;
+  background-position: center;
 
   @media screen and (min-width: ${BREAKPOINTS.lg}px) {
     height: 140px;
@@ -85,9 +82,8 @@ const BannerButton = styled(ButtonEmpty)`
 `
 
 const ProtocolBanner = () => {
-  const isDarkMode = useIsDarkMode()
   return (
-    <Banner isDarkMode={isDarkMode}>
+    <Banner>
       <TextContainer>
         <HeaderText>Optimized by StellaSwap Routing, powered by Uniswap Protocol Liquidity</HeaderText>
         <DescriptionText>
