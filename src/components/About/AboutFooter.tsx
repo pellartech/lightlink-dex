@@ -199,6 +199,8 @@ export const AboutFooter = () => {
         <LinkGroup>
           <LinkGroupTitle>Get Help</LinkGroupTitle>
           <ExternalTextLink href="mailto:hello@lightlink.io">Contact Us</ExternalTextLink>
+          <ExternalTextLink href="https://lightlink.io/terms-of-use">Terms of Use</ExternalTextLink>
+          <ExternalTextLink href="https://lightlink.io/privacy-policy">Privacy Policy</ExternalTextLink>
         </LinkGroup>
       </FooterLinks>
 
