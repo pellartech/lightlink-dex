@@ -157,7 +157,7 @@ export const MenuDropdown = () => {
                 </PrimaryMenuRow>
                 <PrimaryMenuRow href="https://phoenix.lightlink.io">
                   <PrimaryMenuRow.Text>
-                    LL Blockchain Explorer
+                    LightLink Explorer
                   </PrimaryMenuRow.Text>
                 </PrimaryMenuRow>
                 <PrimaryMenuRow href="https://docs.lightlink.io/">
