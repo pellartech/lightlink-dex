@@ -1,5 +1,5 @@
-import { useWeb3React } from '@web3-react/core'
 import { LIGHTLINK_CHAIN_ID } from 'constants/chains'
+import { RPC_PROVIDERS } from 'constants/providers'
 import { LIGHTLINK_TOKEN_LOGOS } from 'constants/tokenLogos'
 import { Contract } from 'ethers'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -85,7 +85,8 @@ interface UseLightLinkBalancesReturn {
 }
 
 export function useLightLinkBalances(account: string | undefined): UseLightLinkBalancesReturn {
-  const { provider, chainId } = useWeb3React()
+  // Always use the LightLink RPC provider directly, regardless of which chain the wallet is on
+  const lightlinkProvider = RPC_PROVIDERS[LIGHTLINK_CHAIN_ID]
   const [subgraphTokens, setSubgraphTokens] = useState<SubgraphToken[]>()
   const [balances, setBalances] = useState<Map<string, number>>()
   const [loading, setLoading] = useState(true)
@@ -99,29 +100,28 @@ export function useLightLinkBalances(account: string | undefined): UseLightLinkB
     return () => { cancelled = true }
   }, [])
 
-  // 2. Fetch ERC-20 balances via RPC
+  // 2. Fetch ERC-20 balances via LightLink RPC
   const fetchBalances = useCallback(async () => {
-    if (!account || !provider || !subgraphTokens || chainId !== LIGHTLINK_CHAIN_ID) return
+    if (!account || !lightlinkProvider || !subgraphTokens) return
 
     setLoading(true)
     const balanceMap = new Map<string, number>()
 
-    // Fetch native ETH balance
+    // Fetch native ETH balance on LightLink
     try {
-      const ethBalance = await provider.getBalance(account)
+      const ethBalance = await lightlinkProvider.getBalance(account)
       const ethValue = parseFloat(ethBalance.toString()) / 1e18
       if (ethValue > 0) {
-        // Use WETH address as key for native ETH display
         balanceMap.set('native', ethValue)
       }
     } catch (e) {
-      console.warn('Failed to fetch ETH balance', e)
+      console.warn('Failed to fetch ETH balance on LightLink', e)
     }
 
-    // Fetch ERC-20 balances in parallel
+    // Fetch ERC-20 balances in parallel via LightLink RPC
     const promises = subgraphTokens.map(async (token) => {
       try {
-        const contract = new Contract(token.id, ERC20_BALANCE_ABI, provider)
+        const contract = new Contract(token.id, ERC20_BALANCE_ABI, lightlinkProvider)
         const balance = await contract.balanceOf(account)
         const decimals = parseInt(token.decimals)
         const value = parseFloat(balance.toString()) / Math.pow(10, decimals)
@@ -136,7 +136,7 @@ export function useLightLinkBalances(account: string | undefined): UseLightLinkB
     await Promise.all(promises)
     setBalances(balanceMap)
     setLoading(false)
-  }, [account, provider, subgraphTokens, chainId])
+  }, [account, lightlinkProvider, subgraphTokens])
 
   useEffect(() => {
     fetchBalances()
