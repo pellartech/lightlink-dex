@@ -3,6 +3,7 @@ import { Protocol } from '@uniswap/router-sdk'
 import { TradeType } from '@uniswap/sdk-core'
 import { sendAnalyticsEvent } from 'analytics'
 import { isUniswapXSupportedChain } from 'constants/chains'
+import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import ms from 'ms'
 import { logSwapQuoteRequest } from 'tracing/swapFlowLoggers'
 import { trace } from 'tracing/trace'
@@ -130,11 +131,17 @@ export const routingApi = createApi({
             const { tokenInAddress, tokenInChainId, tokenOutAddress, tokenOutChainId, amount, tradeType } = args
             const type = isExactInput(tradeType) ? 'EXACT_INPUT' : 'EXACT_OUTPUT'
 
+            // The routing API needs wrapped native token addresses, not 'ETH'/'MATIC'/etc.
+            const resolveNative = (address: string, chainId: number) => {
+              const isNative = Object.values(SwapRouterNativeAssets).includes(address as SwapRouterNativeAssets)
+              return isNative ? WRAPPED_NATIVE_CURRENCY[chainId]?.address ?? address : address
+            }
+
             const requestBody = {
               tokenInChainId,
-              tokenIn: tokenInAddress,
+              tokenIn: resolveNative(tokenInAddress, tokenInChainId),
               tokenOutChainId,
-              tokenOut: tokenOutAddress,
+              tokenOut: resolveNative(tokenOutAddress, tokenOutChainId),
               amount,
               type,
               intent: args.routerPreference === INTERNAL_ROUTER_PREFERENCE_PRICE ? 'pricing' : undefined,
