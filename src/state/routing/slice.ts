@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit
 import { Protocol } from '@uniswap/router-sdk'
 import { TradeType } from '@uniswap/sdk-core'
 import { sendAnalyticsEvent } from 'analytics'
-import { isUniswapXSupportedChain } from 'constants/chains'
+import { isUniswapXSupportedChain, LIGHTLINK_CHAIN_ID } from 'constants/chains'
 import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import ms from 'ms'
 import { logSwapQuoteRequest } from 'tracing/swapFlowLoggers'
@@ -186,6 +186,13 @@ export const routingApi = createApi({
                 error?.message ?? error?.detail ?? error
               }`
             )
+          }
+        }
+        // Skip client-side routing for LightLink — the AlphaRouter doesn't have
+        // LightLink's Multicall contract address and will always fail.
+        if (args.tokenInChainId === LIGHTLINK_CHAIN_ID) {
+          return {
+            data: { state: QuoteState.NOT_FOUND, latencyMs: getQuoteLatencyMeasure(quoteStartMark).duration },
           }
         }
         try {
