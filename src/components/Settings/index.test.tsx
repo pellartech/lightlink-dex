@@ -9,31 +9,18 @@ const slippage = new Percent(75, 10_000)
 jest.mock('constants/chains')
 
 describe('Settings Tab', () => {
-  describe('showRoutingSettings', () => {
-    beforeEach(() => {
-      mocked(isSupportedChain).mockReturnValue(true)
-    })
+  beforeEach(() => {
+    mocked(isSupportedChain).mockReturnValue(true)
+  })
 
-    it('renders routing settings when showRoutingSettings is true', async () => {
-      render(<SettingsTab showRoutingSettings={true} chainId={1} autoSlippage={slippage} />)
+  it('renders slippage settings', async () => {
+    render(<SettingsTab chainId={1} autoSlippage={slippage} />)
 
-      const settingsButton = screen.getByTestId('open-settings-dialog-button')
-      fireEvent.click(settingsButton)
+    const settingsButton = screen.getByTestId('open-settings-dialog-button')
+    fireEvent.click(settingsButton)
 
-      await waitFor(() => {
-        expect(screen.getByTestId('toggle-local-routing-button')).toBeInTheDocument()
-      })
-    })
-
-    it('does not render routing settings when showRoutingSettings is false', async () => {
-      render(<SettingsTab showRoutingSettings={false} chainId={1} autoSlippage={slippage} />)
-
-      const settingsButton = screen.getByTestId('open-settings-dialog-button')
-      fireEvent.click(settingsButton)
-
-      await waitFor(() => {
-        expect(screen.queryByTestId('toggle-local-routing-button')).not.toBeInTheDocument()
-      })
+    await waitFor(() => {
+      expect(screen.getByText('Max. slippage')).toBeInTheDocument()
     })
   })
 })

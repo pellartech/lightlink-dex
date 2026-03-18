@@ -742,7 +742,6 @@ export default function MigrateV2Pair() {
           <SettingsTab
             autoSlippage={DEFAULT_MIGRATE_SLIPPAGE_TOLERANCE}
             chainId={chainId}
-            showRoutingSettings={false}
           />
         </AutoRow>
 
