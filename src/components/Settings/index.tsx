@@ -22,7 +22,7 @@ import { Z_INDEX } from 'theme/zIndex'
 
 import MaxSlippageSettings from './MaxSlippageSettings'
 import MenuButton from './MenuButton'
-import RouterPreferenceSettings from './RouterPreferenceSettings'
+
 import TransactionDeadlineSettings from './TransactionDeadlineSettings'
 
 const CloseButton = styled.button`
@@ -101,12 +101,10 @@ export default function SettingsTab({
   autoSlippage,
   chainId,
   trade,
-  showRoutingSettings = true,
 }: {
   autoSlippage: Percent
   chainId?: number
   trade?: InterfaceTrade
-  showRoutingSettings?: boolean
 }) {
   const { chainId: connectedChainId } = useWeb3React()
   const showDeadlineSettings = Boolean(chainId && !L2_CHAIN_IDS.includes(chainId))
@@ -128,14 +126,8 @@ export default function SettingsTab({
   const Settings = useMemo(
     () => (
       <>
-        {showRoutingSettings && (
-          <AutoColumn gap="16px">
-            <RouterPreferenceSettings />
-          </AutoColumn>
-        )}
         <AnimatedDropdown open={!isUniswapXTrade(trade)}>
-          <ExpandColumn $padTop={showRoutingSettings}>
-            {showRoutingSettings && <Divider />}
+          <ExpandColumn $padTop={false}>
             <MaxSlippageSettings autoSlippage={autoSlippage} />
             {showDeadlineSettings && (
               <>
@@ -147,7 +139,7 @@ export default function SettingsTab({
         </AnimatedDropdown>
       </>
     ),
-    [autoSlippage, showDeadlineSettings, showRoutingSettings, trade]
+    [autoSlippage, showDeadlineSettings, trade]
   )
 
   return (

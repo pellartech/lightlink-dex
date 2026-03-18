@@ -1,6 +1,9 @@
 import { ChainId } from '@uniswap/sdk-core'
 
+import { LIGHTLINK_CHAIN_ID } from 'constants/chains'
+
 const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
+  [LIGHTLINK_CHAIN_ID]: 'https://phoenix.lightlink.io',
   [ChainId.MAINNET]: 'https://etherscan.io',
   [ChainId.GOERLI]: 'https://goerli.etherscan.io',
   [ChainId.SEPOLIA]: 'https://sepolia.etherscan.io',

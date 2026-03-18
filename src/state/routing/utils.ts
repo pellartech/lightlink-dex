@@ -340,6 +340,7 @@ export function isUniswapXTrade(trade?: InterfaceTrade): trade is DutchOrderTrad
   return trade?.fillType === TradeFillType.UniswapX
 }
 
-export function shouldUseAPIRouter(args: GetQuoteArgs): boolean {
-  return args.routerPreference !== RouterPreference.CLIENT
+export function shouldUseAPIRouter(_args: GetQuoteArgs): boolean {
+  // Always use client-side routing — the hosted routing API is not configured for LightLink.
+  return false
 }
