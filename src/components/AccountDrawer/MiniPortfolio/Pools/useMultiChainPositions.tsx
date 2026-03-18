@@ -1,4 +1,5 @@
 import { ChainId, CurrencyAmount, Token } from '@uniswap/sdk-core'
+import { LIGHTLINK_CHAIN_ID } from 'constants/chains'
 import { V3_CORE_FACTORY_ADDRESSES } from 'constants/addresses'
 import IUniswapV3PoolStateJSON from '@uniswap/v3-core/artifacts/contracts/interfaces/pool/IUniswapV3PoolState.sol/IUniswapV3PoolState.json'
 import { computePoolAddress, Pool, Position } from '@uniswap/v3-sdk'
@@ -41,6 +42,7 @@ type FeeAmounts = [BigNumber, BigNumber]
 const MAX_UINT128 = BigNumber.from(2).pow(128).sub(1)
 
 const DEFAULT_CHAINS = [
+  LIGHTLINK_CHAIN_ID as unknown as ChainId,
   ChainId.MAINNET,
   ChainId.ARBITRUM_ONE,
   ChainId.OPTIMISM,

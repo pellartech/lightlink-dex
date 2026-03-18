@@ -1,61 +1,61 @@
 import { BrowserEvent, InterfaceElementName, SharedEventName } from '@uniswap/analytics-events'
 import { TraceEvent } from 'analytics'
-import { useCachedPortfolioBalancesQuery } from 'components/PrefetchBalancesWrapper/PrefetchBalancesWrapper'
 import Row from 'components/Row'
 import { DeltaArrow } from 'components/Tokens/TokenDetails/Delta'
-import { TokenBalance } from 'graphql/data/__generated__/types-and-hooks'
-import { getTokenDetailsURL, gqlToCurrency, logSentryErrorForUnsupportedChain } from 'graphql/data/util'
-import { useAtomValue } from 'jotai/utils'
+import { LIGHTLINK_CHAIN_ID } from 'constants/chains'
+import { LightLinkTokenBalance, useLightLinkBalances } from 'graphql/data/lightlink/useLightLinkBalances'
 import { EmptyWalletModule } from 'nft/components/profile/view/EmptyWalletContent'
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { EllipsisStyle, ThemedText } from 'theme/components'
 import { NumberType, useFormatter } from 'utils/formatNumbers'
-import { splitHiddenTokens } from 'utils/splitHiddenTokens'
 
 import { useToggleAccountDrawer } from '../..'
-import { hideSmallBalancesAtom } from '../../SmallBalanceToggle'
 import { ExpandoRow } from '../ExpandoRow'
 import { PortfolioLogo } from '../PortfolioLogo'
 import PortfolioRow, { PortfolioSkeleton, PortfolioTabWrapper } from '../PortfolioRow'
 
 export default function Tokens({ account }: { account: string }) {
   const toggleWalletDrawer = useToggleAccountDrawer()
-  const hideSmallBalances = useAtomValue(hideSmallBalancesAtom)
   const [showHiddenTokens, setShowHiddenTokens] = useState(false)
 
-  const { data } = useCachedPortfolioBalancesQuery({ account })
+  const { tokenBalances, loading } = useLightLinkBalances(account)
 
-  const tokenBalances = data?.portfolios?.[0].tokenBalances as TokenBalance[] | undefined
+  // Split into visible (>$1) and hidden (<=$1)
+  const { visibleTokens, hiddenTokens } = useMemo(() => {
+    if (!tokenBalances) return { visibleTokens: [], hiddenTokens: [] }
+    const visible: LightLinkTokenBalance[] = []
+    const hidden: LightLinkTokenBalance[] = []
+    for (const tb of tokenBalances) {
+      if (tb.denominatedValue.value > 1) {
+        visible.push(tb)
+      } else {
+        hidden.push(tb)
+      }
+    }
+    return { visibleTokens: visible, hiddenTokens: hidden }
+  }, [tokenBalances])
 
-  const { visibleTokens, hiddenTokens } = useMemo(
-    () => splitHiddenTokens(tokenBalances ?? [], { hideSmallBalances }),
-    [hideSmallBalances, tokenBalances]
-  )
-
-  if (!data) {
+  if (loading && !tokenBalances) {
     return <PortfolioSkeleton />
   }
 
-  if (tokenBalances?.length === 0) {
-    // TODO: consider launching moonpay here instead of just closing the drawer
+  if (!tokenBalances || tokenBalances.length === 0) {
     return <EmptyWalletModule type="token" onNavigateClick={toggleWalletDrawer} />
   }
 
-  const toggleHiddenTokens = () => setShowHiddenTokens((showHiddenTokens) => !showHiddenTokens)
+  const toggleHiddenTokens = () => setShowHiddenTokens((s) => !s)
 
   return (
     <PortfolioTabWrapper>
-      {visibleTokens.map(
-        (tokenBalance) =>
-          tokenBalance.token && <TokenRow key={tokenBalance.id} {...tokenBalance} token={tokenBalance.token} />
-      )}
+      {visibleTokens.map((tb) => (
+        <LightLinkTokenRow key={tb.id} tokenBalance={tb} />
+      ))}
       <ExpandoRow isExpanded={showHiddenTokens} toggle={toggleHiddenTokens} numItems={hiddenTokens.length}>
-        {hiddenTokens.map(
-          (tokenBalance) =>
-            tokenBalance.token && <TokenRow key={tokenBalance.id} {...tokenBalance} token={tokenBalance.token} />
-        )}
+        {hiddenTokens.map((tb) => (
+          <LightLinkTokenRow key={tb.id} tokenBalance={tb} />
+        ))}
       </ExpandoRow>
     </PortfolioTabWrapper>
   )
@@ -68,54 +68,50 @@ const TokenNameText = styled(ThemedText.SubHeader)`
   ${EllipsisStyle}
 `
 
-type PortfolioToken = NonNullable<TokenBalance['token']>
-
-function TokenRow({ token, quantity, denominatedValue, tokenProjectMarket }: TokenBalance & { token: PortfolioToken }) {
-  const { formatPercent } = useFormatter()
-  const percentChange = tokenProjectMarket?.pricePercentChange?.value ?? 0
+function LightLinkTokenRow({ tokenBalance }: { tokenBalance: LightLinkTokenBalance }) {
+  const { formatPercent, formatNumber } = useFormatter()
+  const percentChange = tokenBalance.tokenProjectMarket.pricePercentChange.value
 
   const navigate = useNavigate()
   const toggleWalletDrawer = useToggleAccountDrawer()
-  const navigateToTokenDetails = useCallback(async () => {
-    navigate(getTokenDetailsURL(token))
+  const navigateToTokenDetails = useCallback(() => {
+    const address = tokenBalance.token.address === 'native' ? 'NATIVE' : tokenBalance.token.address
+    navigate(`/tokens/lightlink/${address}`)
     toggleWalletDrawer()
-  }, [navigate, token, toggleWalletDrawer])
-  const { formatNumber } = useFormatter()
+  }, [navigate, tokenBalance.token.address, toggleWalletDrawer])
 
-  const currency = gqlToCurrency(token)
-  if (!currency) {
-    logSentryErrorForUnsupportedChain({
-      extras: { token },
-      errorMessage: 'Token from unsupported chain received from Mini Portfolio Token Balance Query',
-    })
-    return null
-  }
   return (
     <TraceEvent
       events={[BrowserEvent.onClick]}
       name={SharedEventName.ELEMENT_CLICKED}
       element={InterfaceElementName.MINI_PORTFOLIO_TOKEN_ROW}
-      properties={{ chain_id: currency.chainId, token_name: token?.name, address: token?.address }}
+      properties={{ chain_id: LIGHTLINK_CHAIN_ID, token_name: tokenBalance.token.name, address: tokenBalance.token.address }}
     >
       <PortfolioRow
-        left={<PortfolioLogo chainId={currency.chainId} currencies={[currency]} size="40px" />}
-        title={<TokenNameText>{token?.name}</TokenNameText>}
+        left={
+          <PortfolioLogo
+            chainId={LIGHTLINK_CHAIN_ID}
+            images={tokenBalance.token.logoUrl ? [tokenBalance.token.logoUrl] : undefined}
+            size="40px"
+          />
+        }
+        title={<TokenNameText>{tokenBalance.token.name}</TokenNameText>}
         descriptor={
           <TokenBalanceText>
             {formatNumber({
-              input: quantity,
+              input: tokenBalance.quantity,
               type: NumberType.TokenNonTx,
             })}{' '}
-            {token?.symbol}
+            {tokenBalance.token.symbol}
           </TokenBalanceText>
         }
         onClick={navigateToTokenDetails}
         right={
-          denominatedValue && (
+          tokenBalance.denominatedValue && (
             <>
               <ThemedText.SubHeader>
                 {formatNumber({
-                  input: denominatedValue?.value,
+                  input: tokenBalance.denominatedValue.value,
                   type: NumberType.PortfolioBalance,
                 })}
               </ThemedText.SubHeader>
