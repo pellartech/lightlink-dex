@@ -2,7 +2,8 @@ import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit
 import { Protocol } from '@uniswap/router-sdk'
 import { TradeType } from '@uniswap/sdk-core'
 import { sendAnalyticsEvent } from 'analytics'
-import { isUniswapXSupportedChain } from 'constants/chains'
+import { isUniswapXSupportedChain, LIGHTLINK_CHAIN_ID } from 'constants/chains'
+import { WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import ms from 'ms'
 import { logSwapQuoteRequest } from 'tracing/swapFlowLoggers'
 import { trace } from 'tracing/trace'
@@ -130,11 +131,17 @@ export const routingApi = createApi({
             const { tokenInAddress, tokenInChainId, tokenOutAddress, tokenOutChainId, amount, tradeType } = args
             const type = isExactInput(tradeType) ? 'EXACT_INPUT' : 'EXACT_OUTPUT'
 
+            // The routing API needs wrapped native token addresses, not 'ETH'/'MATIC'/etc.
+            const resolveNative = (address: string, chainId: number) => {
+              const isNative = Object.values(SwapRouterNativeAssets).includes(address as SwapRouterNativeAssets)
+              return isNative ? WRAPPED_NATIVE_CURRENCY[chainId]?.address ?? address : address
+            }
+
             const requestBody = {
               tokenInChainId,
-              tokenIn: tokenInAddress,
+              tokenIn: resolveNative(tokenInAddress, tokenInChainId),
               tokenOutChainId,
-              tokenOut: tokenOutAddress,
+              tokenOut: resolveNative(tokenOutAddress, tokenOutChainId),
               amount,
               type,
               intent: args.routerPreference === INTERNAL_ROUTER_PREFERENCE_PRICE ? 'pricing' : undefined,
@@ -179,6 +186,24 @@ export const routingApi = createApi({
                 error?.message ?? error?.detail ?? error
               }`
             )
+          }
+        }
+        // For LightLink, use direct QuoterV2 contract calls instead of AlphaRouter
+        // (which doesn't have LightLink's Multicall contract addresses).
+        if (args.tokenInChainId === (LIGHTLINK_CHAIN_ID as number)) {
+          try {
+            const { getLightLinkQuote } = await import('lib/hooks/routing/lightlinkQuoter')
+            const result = await getLightLinkQuote(args)
+            if (result.state === QuoteState.SUCCESS && result.data) {
+              const trade = await transformRoutesToTrade(args, result.data as URAQuoteResponse, QuoteMethod.CLIENT_SIDE_FALLBACK)
+              return { data: { ...trade, latencyMs: getQuoteLatencyMeasure(quoteStartMark).duration } }
+            }
+            return { data: { state: QuoteState.NOT_FOUND, latencyMs: getQuoteLatencyMeasure(quoteStartMark).duration } }
+          } catch (error: any) {
+            console.warn(`LightLink direct quote failed: ${error?.message ?? error}`)
+            return {
+              data: { state: QuoteState.NOT_FOUND, latencyMs: getQuoteLatencyMeasure(quoteStartMark).duration },
+            }
           }
         }
         try {

@@ -12,6 +12,7 @@ import { LoadingBubble } from 'components/Tokens/loading'
 import { DeltaArrow } from 'components/Tokens/TokenDetails/Delta'
 import Tooltip from 'components/Tooltip'
 import { getConnection } from 'connection'
+import { useLightLinkBalances } from 'graphql/data/lightlink/useLightLinkBalances'
 import { useDisableNFTRoutes } from 'hooks/useDisableNFTRoutes'
 import useENSName from 'hooks/useENSName'
 import { useIsNotOriginCountry } from 'hooks/useIsNotOriginCountry'
@@ -32,7 +33,7 @@ import { useCloseModal, useFiatOnrampAvailability, useOpenModal, useToggleModal 
 import { ApplicationModal } from '../../state/application/reducer'
 import { useUserHasAvailableClaim, useUserUnclaimedAmount } from '../../state/claim/hooks'
 import StatusIcon from '../Identicon/StatusIcon'
-import { useCachedPortfolioBalancesQuery } from '../PrefetchBalancesWrapper/PrefetchBalancesWrapper'
+
 import { useToggleAccountDrawer } from '.'
 import IconButton, { IconHoverText, IconWithConfirmTextButton } from './IconButton'
 import MiniPortfolio from './MiniPortfolio'
@@ -218,11 +219,10 @@ export default function AuthenticatedHeader({ account, openSettings }: { account
   const openFiatOnrampUnavailableTooltip = useCallback(() => setShow(true), [setShow])
   const closeFiatOnrampUnavailableTooltip = useCallback(() => setShow(false), [setShow])
 
-  const { data: portfolioBalances } = useCachedPortfolioBalancesQuery({ account })
-  const portfolio = portfolioBalances?.portfolios?.[0]
-  const totalBalance = portfolio?.tokensTotalDenominatedValue?.value
-  const absoluteChange = portfolio?.tokensTotalDenominatedValueChange?.absolute?.value
-  const percentChange = portfolio?.tokensTotalDenominatedValueChange?.percentage?.value
+  const { totalBalance, loading: balancesLoading } = useLightLinkBalances(account)
+  // No day-over-day change available from subgraph for total portfolio
+  const absoluteChange = undefined
+  const percentChange = undefined
   const [showDisconnectConfirm, setShowDisconnectConfirm] = useState(false)
 
   return (
@@ -277,12 +277,12 @@ export default function AuthenticatedHeader({ account, openSettings }: { account
               })}
             </ThemedText.HeadlineLarge>
             <AutoRow marginBottom="20px">
-              {absoluteChange !== 0 && percentChange && (
+              {absoluteChange != null && absoluteChange !== 0 && percentChange != null && (
                 <>
                   <DeltaArrow delta={absoluteChange} />
                   <ThemedText.BodySecondary>
                     {`${formatNumber({
-                      input: Math.abs(absoluteChange as number),
+                      input: Math.abs(absoluteChange),
                       type: NumberType.PortfolioBalance,
                     })} (${formatPercent(percentChange)})`}
                   </ThemedText.BodySecondary>

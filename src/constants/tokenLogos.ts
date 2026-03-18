@@ -8,7 +8,7 @@
 const WETH_LOGO = 'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png'
 const USDC_LOGO = 'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png'
 const USDT_LOGO = 'https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png'
-const LL_LOGO = 'https://uniswap-api-production-64b8.up.railway.app/logos/ll.png'
+const LL_LOGO = 'https://raw.githubusercontent.com/pellartech/ll-beacon-config/refs/heads/main/assets/token/LL.png'
 
 // Map of LightLink token addresses (lowercased) to their logo URLs
 export const LIGHTLINK_TOKEN_LOGOS: Record<string, string> = {

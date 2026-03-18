@@ -1,5 +1,6 @@
 import { ChainId } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
+import { LIGHTLINK_CHAIN_ID } from 'constants/chains'
 import { useIsNftPage } from 'hooks/useIsNftPage'
 import { useEffect } from 'react'
 import { useDarkModeManager } from 'theme/components/ThemeToggle'
@@ -121,7 +122,14 @@ export default function RadialGradientByChainUpdater(): null {
         break
       }
       default: {
-        setDefaultBackground(backgroundRadialGradientElement, darkMode)
+        if (chainId === LIGHTLINK_CHAIN_ID) {
+          setBackground(backgroundResetStyles)
+          const lightlinkDarkGradient = 'linear-gradient(180deg, #0D0E0E 0%, #0D0E0E 100%)'
+          const lightlinkLightGradient = '#FFFFFF'
+          backgroundRadialGradientElement.style.background = darkMode ? lightlinkDarkGradient : lightlinkLightGradient
+        } else {
+          setDefaultBackground(backgroundRadialGradientElement, darkMode)
+        }
       }
     }
   }, [darkMode, chainId, isNftPage])

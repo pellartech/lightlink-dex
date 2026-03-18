@@ -70,11 +70,8 @@ function NetworkFeesDescription({ native }: { native: Currency }) {
   return (
     <ThemedText.LabelMicro>
       <Trans>
-        The fee paid to the Ethereum network to process your transaction. This must be paid in {native.symbol}.
-      </Trans>{' '}
-      <ExternalLink href="https://support.uniswap.org/hc/en-us/articles/8370337377805-What-is-a-network-fee-">
-        <Trans>Learn more</Trans>
-      </ExternalLink>
+        Transactions on LightLink are gasless — there are no network fees to process your swap.
+      </Trans>
     </ThemedText.LabelMicro>
   )
 }
