@@ -122,7 +122,7 @@ function useLineItem(props: SwapLineItemProps): LineItemData | undefined {
     case SwapLineItemType.NETWORK_COST:
       if (!SUPPORTED_GAS_ESTIMATE_CHAIN_IDS.includes(chainId)) return
       return {
-        Label: () => <Trans>Network cost</Trans>,
+        Label: () => <Trans>Network fee (gasless)</Trans>,
         TooltipBody: () => <GasBreakdownTooltip trade={trade} hideUniswapXDescription />,
         Value: () => {
           if (isPreview) return <Loading />
