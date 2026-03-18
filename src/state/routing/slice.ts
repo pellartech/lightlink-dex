@@ -188,11 +188,22 @@ export const routingApi = createApi({
             )
           }
         }
-        // Skip client-side routing for LightLink — the AlphaRouter doesn't have
-        // LightLink's Multicall contract address and will always fail.
-        if (args.tokenInChainId === LIGHTLINK_CHAIN_ID) {
-          return {
-            data: { state: QuoteState.NOT_FOUND, latencyMs: getQuoteLatencyMeasure(quoteStartMark).duration },
+        // For LightLink, use direct QuoterV2 contract calls instead of AlphaRouter
+        // (which doesn't have LightLink's Multicall contract addresses).
+        if (args.tokenInChainId === (LIGHTLINK_CHAIN_ID as number)) {
+          try {
+            const { getLightLinkQuote } = await import('lib/hooks/routing/lightlinkQuoter')
+            const result = await getLightLinkQuote(args)
+            if (result.state === QuoteState.SUCCESS && result.data) {
+              const trade = await transformRoutesToTrade(args, result.data as URAQuoteResponse, QuoteMethod.CLIENT_SIDE_FALLBACK)
+              return { data: { ...trade, latencyMs: getQuoteLatencyMeasure(quoteStartMark).duration } }
+            }
+            return { data: { state: QuoteState.NOT_FOUND, latencyMs: getQuoteLatencyMeasure(quoteStartMark).duration } }
+          } catch (error: any) {
+            console.warn(`LightLink direct quote failed: ${error?.message ?? error}`)
+            return {
+              data: { state: QuoteState.NOT_FOUND, latencyMs: getQuoteLatencyMeasure(quoteStartMark).duration },
+            }
           }
         }
         try {
