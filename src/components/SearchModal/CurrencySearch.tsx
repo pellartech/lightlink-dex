@@ -4,8 +4,8 @@ import { InterfaceEventName, InterfaceModalName } from '@uniswap/analytics-event
 import { Currency, Token } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { Trace } from 'analytics'
-import { useCachedPortfolioBalancesQuery } from 'components/PrefetchBalancesWrapper/PrefetchBalancesWrapper'
-import { supportedChainIdFromGQLChain } from 'graphql/data/util'
+import { useLightLinkBalances } from 'graphql/data/lightlink/useLightLinkBalances'
+
 import useDebounce from 'hooks/useDebounce'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import useToggle from 'hooks/useToggle'
@@ -80,25 +80,15 @@ export function CurrencySearch({
     return Object.values(defaultTokens).filter(getTokenFilter(debouncedQuery))
   }, [defaultTokens, debouncedQuery])
 
-  const { data, loading: balancesAreLoading } = useCachedPortfolioBalancesQuery({ account })
+  const { tokenBalances: llBalances, loading: balancesAreLoading } = useLightLinkBalances(account)
   const balances: TokenBalances = useMemo(() => {
-    return (
-      data?.portfolios?.[0].tokenBalances?.reduce((balanceMap, tokenBalance) => {
-        if (
-          tokenBalance.token?.chain &&
-          supportedChainIdFromGQLChain(tokenBalance.token?.chain) === chainId &&
-          tokenBalance.token?.address !== undefined &&
-          tokenBalance.denominatedValue?.value !== undefined
-        ) {
-          const address = tokenBalance.token?.standard === 'ERC20' ? tokenBalance.token?.address?.toLowerCase() : 'ETH'
-          const usdValue = tokenBalance.denominatedValue?.value
-          const balance = tokenBalance.quantity
-          balanceMap[address] = { usdValue, balance: balance ?? 0 }
-        }
-        return balanceMap
-      }, {} as TokenBalances) ?? {}
-    )
-  }, [chainId, data?.portfolios])
+    if (!llBalances) return {}
+    return llBalances.reduce((balanceMap, tb) => {
+      const address = tb.token.address === 'native' ? 'ETH' : tb.token.address.toLowerCase()
+      balanceMap[address] = { usdValue: tb.denominatedValue.value, balance: tb.quantity }
+      return balanceMap
+    }, {} as TokenBalances)
+  }, [llBalances])
 
   const sortedTokens: Token[] = useMemo(
     () =>
